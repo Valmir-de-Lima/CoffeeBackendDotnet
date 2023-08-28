@@ -3,7 +3,7 @@ using Coffee.Domain.Models.User;
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Infra.Data;
 
-namespace Store.Infra.Repositories;
+namespace Coffee.Infra.Repositories;
 
 public class RefreshLoginUserRepository : IRefreshLoginUserRepository
 {
