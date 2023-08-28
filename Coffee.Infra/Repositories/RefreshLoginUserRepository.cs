@@ -8,22 +8,22 @@ namespace Coffee.Infra.Repositories;
 public class RefreshLoginUserRepository : IRefreshLoginUserRepository
 {
     private readonly StoreDataContext _context;
+    private Repository<RefreshLoginUser> _repository;
 
     public RefreshLoginUserRepository(StoreDataContext context)
     {
         _context = context;
+        _repository = new Repository<RefreshLoginUser>(context);
     }
 
     public async Task CreateAsync(RefreshLoginUser refreshLoginUser)
     {
-        await _context.RefreshLoginUsers.AddAsync(refreshLoginUser);
-        _context.SaveChanges();
+        await _repository.CreateAsync(refreshLoginUser);
     }
 
     public void Delete(RefreshLoginUser item)
     {
-        _context.RefreshLoginUsers.Remove(item);
-        _context.SaveChanges();
+        _repository.Delete(item);
     }
 
     public async Task<string?> GetByUserNameAsync(string userName)
