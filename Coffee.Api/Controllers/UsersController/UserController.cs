@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Coffee.Domain.Commands.UserCommands;
 using Coffee.Domain.Handlers.UserHandlers;
 using Coffee.Domain.Commands;
-using Coffee.Api.Controllers;
-using Coffee.Domain.Services;
 
 namespace Coffee.Api.Controllers.UsersController;
 

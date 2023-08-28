@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Coffee.Domain.Commands.UserCommands;
 using Coffee.Domain.Handlers.UserHandlers;
-using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Domain.Commands;
 
 namespace Coffee.Api.Controllers.UsersController;
