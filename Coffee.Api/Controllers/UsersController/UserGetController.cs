@@ -7,7 +7,7 @@ using Coffee.Domain.Commands;
 
 namespace Coffee.Api.Controllers.UsersController;
 
-public partial class UserController : ControllerBase
+public partial class UserController : UserControllerBase
 {
     [Authorize(Roles = Configuration.MANAGER)]
     [HttpGet("v1/users")]

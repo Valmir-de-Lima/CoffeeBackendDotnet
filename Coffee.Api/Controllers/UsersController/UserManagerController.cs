@@ -6,7 +6,7 @@ using Coffee.Domain.Commands;
 
 namespace Coffee.Api.Controllers.UsersController;
 
-public partial class UserController : ControllerBase
+public partial class UserController : UserControllerBase
 {
     [HttpPost("v1/users/manager")]
     public async Task<IActionResult> CreatePrimaryManager(
@@ -22,27 +22,15 @@ public partial class UserController : ControllerBase
         catch
         {
             return StatusCode(500, new CommandResult(false,
-                "Erro ao acessar o banco de dados"
+                "Erro ao realizar a requisição"
             ));
         }
     }
 
     [Authorize(Roles = Configuration.MANAGER)]
     [HttpPut("v1/users/manager/update-type-user")]
-    public async Task<IActionResult> UpdateTypeUser(
-        [FromBody] UpdateTypeUserCommand command,
-        [FromServices] UserHandler handler
-    )
+    public async Task<IActionResult> UpdateTypeUser([FromBody] UpdateTypeUserCommand command)
     {
-        try
-        {
-            return Ok((CommandResult)await handler.HandleAsync(command));
-        }
-        catch
-        {
-            return StatusCode(500, new CommandResult(false,
-                "Erro ao acessar o banco de dados"
-            ));
-        }
+        return await ExecuteCommandAsync(command);
     }
 }
