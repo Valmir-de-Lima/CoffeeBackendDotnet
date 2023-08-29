@@ -11,6 +11,6 @@ public class UpdateRecoveryPasswordUserContract : Contract<UpdateRecoveryPasswor
                 .IsNotNullOrEmpty(password, password, "Campo requerido")
                 .IsNotNullOrEmpty(recoveryPassword.ToString(), recoveryPassword.ToString(), "Campo requerido")
                 .Matches(id.ToString(), "^(?:\\{{0,1}(?:[0-9a-fA-F]){8}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){12}\\}{0,1})$", "id", "Valor inválido")
-                .Matches(recoveryPassword.ToString(), "^(?:\\{{0,1}(?:[0-9a-fA-F]){8}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){12}\\}{0,1})$", "recovery", "Valor inválido");
+                .Matches(recoveryPassword.ToString(), "^(?:\\{{0,1}(?:[0-9a-fA-F]){8}\\}{0,1})$", "recovery", "Valor inválido");
     }
 }

@@ -7,6 +7,7 @@ public class GetUserContract : Contract<GetUserCommand>
     public GetUserContract(string link)
     {
         Requires()
-                .IsNotEmpty(link, link, "O link deve ser informado");
+                .IsNotEmpty(link, link, "O link deve ser informado")
+                .IsNotNullOrWhiteSpace(link, link, "Link inválido");
     }
 }

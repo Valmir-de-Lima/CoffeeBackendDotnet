@@ -34,5 +34,18 @@ public class DeleteUserCommandTests
         Assert.IsFalse(_command.IsValid);
     }
 
+    [TestMethod]
+    [DataTestMethod]
+    [DataRow("batman@wayne.com", "31122022")]
+    [DataRow("robin@wayne.com", "Teste")]
+    [DataRow("superman@justiceleague.com", "Tes.311")]
+    public void ShouldReturnInvalidCommandWhenPasswordIsInvalid(string addres, string password)
+    {
+        _command.Email = addres;
+        _command.Password = password;
+
+        _command.Validate();
+        Assert.IsFalse(_command.IsValid);
+    }
 }
 

@@ -51,5 +51,19 @@ public class CreateUserCommandTests
         Assert.IsFalse(_command.IsValid);
     }
 
+    [TestMethod]
+    [DataTestMethod]
+    [DataRow("batman", "batman@wayne.com", "31122022")]
+    [DataRow("robin", "robin@wayne.com", "Teste31122022")]
+    [DataRow("superman", "superman@justiceleague.com", "Tes.311")]
+    public void ShouldReturnInValidCommandWhenPasswordIsInvalid(string name, string addres, string password)
+    {
+        _command.Name = name;
+        _command.Email = addres;
+        _command.Password = password;
+
+        _command.Validate();
+        Assert.IsFalse(_command.IsValid);
+    }
 }
 

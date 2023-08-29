@@ -41,7 +41,7 @@ public class RecoveryPasswordUserHandler : Handler
             return new CommandResult(false, Notifications);
         }
 
-        var recoveryPasswordHash = Guid.NewGuid().ToString();
+        var recoveryPasswordHash = Guid.NewGuid().ToString().Substring(0, 8);
 
         if (!_emailService.Send(user.Name, user.Email.Address, "Início do processo da criação de uma nova senha", FormatEmailBody(user, recoveryPasswordHash, command.GetUrlOfSite())))
         {
