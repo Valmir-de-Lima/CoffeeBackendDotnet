@@ -6,7 +6,7 @@ using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Domain.ValueObjects;
 using Coffee.Infra.Data;
 
-namespace Coffee.Infra.Repositories;
+namespace Coffee.Infra.Repositories.UsersRepository;
 
 public class UserRepository : Repository<User>, IUserRepository
 {

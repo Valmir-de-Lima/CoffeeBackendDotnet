@@ -2,14 +2,12 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Coffee.Api.Controllers;
 using Coffee.Api.Services;
-using Coffee.Domain.Commands.UserCommands;
 using Coffee.Domain.Handlers.UserHandlers;
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Domain.Services;
 using Coffee.Infra.Data;
-using Coffee.Infra.Repositories;
+using Coffee.Infra.Repositories.UsersRepository;
 
 namespace Coffee.Api.Extensions;
 

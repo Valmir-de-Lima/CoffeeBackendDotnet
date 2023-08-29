@@ -1,5 +1,4 @@
 using Coffee.Domain.Models;
-using Coffee.Domain.Queries;
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Infra.Data;
 
