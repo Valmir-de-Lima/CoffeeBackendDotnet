@@ -8,23 +8,23 @@ public class MockUserRepository : IUserRepository
 
     private List<User> _users = new List<User>();
 
-    public MockUserRepository()
+    public MockUserRepository(Boolean active = true)
     {
         var user = new User("batman", new Email("batman@wayne.com"), new Password("Teste.31122022"), EType.Manager);
-        user.UpdateActive(true);
+        user.UpdateActive(active);
         _users.Add(user);
 
         user = new User("catwoman", new Email("catwoman@wayne.com"), new Password("Teste.31122022"), EType.Barista);
-        user.UpdateActive(true);
+        user.UpdateActive(active);
         _users.Add(user);
 
 
         user = new User("robin", new Email("robin@wayne.com"), new Password("Teste.31122022"), EType.Deliveryman);
-        user.UpdateActive(true);
+        user.UpdateActive(active);
         _users.Add(user);
 
         user = new User("superman", new Email("superman@justiceleague.com"), new Password("Teste.31122022"), EType.Customer);
-        user.UpdateActive(true);
+        user.UpdateActive(active);
         _users.Add(user);
     }
 
