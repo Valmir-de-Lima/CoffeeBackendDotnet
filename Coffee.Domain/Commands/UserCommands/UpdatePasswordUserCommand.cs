@@ -12,10 +12,12 @@ public class UpdatePasswordUserCommand : Command, ICommand
     public void Validate()
     {
         var newPassword = new Password(NewPassword);
+        var oldPassword = new Password(OldPassword);
         AddNotifications(new UpdatePasswordUserContract(
             OldPassword,
             NewPassword
         ),
-        newPassword);
+        newPassword,
+        oldPassword);
     }
 }
