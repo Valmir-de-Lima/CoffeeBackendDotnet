@@ -11,7 +11,7 @@ public class DeleteUserHandlersTests
     [DataRow("batman@wayne.com", "Teste.31122022")]
     [DataRow("robin@wayne.com", "Teste.31122022")]
     [DataRow("superman@justiceleague.com", "Teste.31122022")]
-    public async Task ShouldReturnTrueSuccessWhenEmailExists(string addres, string password)
+    public async Task ShouldReturnTrueSuccessWhenDatasAreValids(string addres, string password)
     {
         var command = new DeleteUserCommand();
         command.Email = addres;
@@ -26,10 +26,46 @@ public class DeleteUserHandlersTests
 
     [TestMethod]
     [DataTestMethod]
+    [DataRow("batman@wayne.com", EType.Customer, "Teste.31122022")]
+    [DataRow("robin@wayne.com", EType.Deliveryman, "Teste.31122022")]
+    [DataRow("superman@justiceleague.com", EType.Barista, "Teste.31122022")]
+    public async Task ShouldReturnFalseSuccessWhenUserTypeDontManager(string addres, EType type, string password)
+    {
+        var command = new DeleteUserCommand();
+        command.Email = addres;
+        command.Password = password;
+
+        command.SetUserType(type);
+        command.SetUserName(addres.Replace("@", "-").Replace(".", "-"));
+        var _result = (CommandResult)await _handler.HandleAsync(command);
+
+        Assert.IsFalse(_result.Success);
+    }
+
+    [TestMethod]
+    [DataTestMethod]
+    [DataRow("batman@wayne.com", "")]
+    [DataRow("robin@wayne.com", "Teste.31122023")]
+    [DataRow("superman@justiceleague.com", "31122022.Teste")]
+    public async Task ShouldReturnFalseSuccessWhenPasswordManagerIsInvalids(string addres, string password)
+    {
+        var command = new DeleteUserCommand();
+        command.Email = addres;
+        command.Password = password;
+
+        command.SetUserType(EType.Manager);
+        command.SetUserName(addres.Replace("@", "-").Replace(".", "-"));
+        var _result = (CommandResult)await _handler.HandleAsync(command);
+
+        Assert.IsFalse(_result.Success);
+    }
+
+    [TestMethod]
+    [DataTestMethod]
     [DataRow("batman@batman.com", "Teste.31122022")]
     [DataRow("robin@robin.com", "Teste.31122022")]
     [DataRow("superman@justice.com", "Teste.31122022")]
-    public async Task ShouldReturnFalseSucessWhenEmailDontExists(string addres, string password)
+    public async Task ShouldReturnFalseSucessWhenEmailUserForDeleteDontExists(string addres, string password)
     {
         var command = new DeleteUserCommand();
         command.Email = addres;
@@ -39,6 +75,5 @@ public class DeleteUserHandlersTests
 
         Assert.IsFalse(_result.Success);
     }
-
 }
 

@@ -2,14 +2,14 @@ namespace Coffee.Tests.Handlers.UserHandlerTests;
 
 [TestClass]
 [TestCategory("Handlers")]
-public class ActiveUserHandlersTests
+public class ConfirmRecoveryPasswordUserHandlerTests
 {
-    // False: Repository with anactived users
-    private MockUserRepository _repository = new(false);
+    // False: Repository with actived users
+    private MockUserRepository _repository = new(true);
     private readonly UserHandler _handler;
     private List<string> _guids = new();
 
-    public ActiveUserHandlersTests()
+    public ConfirmRecoveryPasswordUserHandlerTests()
     {
         _handler = new UserHandler(_repository, new MockTokenService(), new MockEmailService());
 
@@ -22,7 +22,7 @@ public class ActiveUserHandlersTests
     {
         foreach (var guid in _guids)
         {
-            var command = new ActiveUserCommand(guid);
+            var command = new ConfirmRecoveryPasswordUserCommand(guid);
 
             var _result = (CommandResult)await _handler.HandleAsync(command);
 
@@ -43,24 +43,6 @@ public class ActiveUserHandlersTests
         var _result = (CommandResult)await _handler.HandleAsync(command);
 
         Assert.IsFalse(_result.Success);
-    }
-
-    [TestMethod]
-    [DataTestMethod]
-    public async Task ShouldReturnFalseSuccessWhenUserIsActived()
-    {
-        // True: Repository with actived users
-        _repository = new MockUserRepository(true);
-        _guids = GetIdUserRepository(_guids, _repository);
-
-        foreach (var guid in _guids)
-        {
-            var command = new ActiveUserCommand(guid);
-
-            var _result = (CommandResult)await _handler.HandleAsync(command);
-
-            Assert.IsFalse(_result.Success);
-        }
     }
 
     private List<string> GetIdUserRepository(List<string> guids, MockUserRepository repository)

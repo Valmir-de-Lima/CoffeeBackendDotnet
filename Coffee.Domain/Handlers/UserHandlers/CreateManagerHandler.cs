@@ -11,7 +11,6 @@ namespace Coffee.Domain.Handlers.UserHandlers;
 
 public class CreateManagerHandler : Handler, IHandler<CreateManagerCommand>
 {
-
     private readonly IUserRepository _repository;
     private readonly IEmailService _emailService;
 

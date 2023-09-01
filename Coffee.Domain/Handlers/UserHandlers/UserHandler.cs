@@ -105,6 +105,6 @@ public class UserHandler : Handler,
 
     public async Task<ICommandResult> HandleAsync(RefreshLoginUserCommand command)
     {
-        return await new RefreshLoginUserHandler(_repository, _tokenService).HandleAsync(command);
+        return await new RefreshLoginUserHandler(_tokenService).HandleAsync(command);
     }
 }

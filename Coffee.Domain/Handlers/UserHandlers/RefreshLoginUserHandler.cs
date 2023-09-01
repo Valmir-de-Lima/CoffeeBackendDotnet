@@ -10,12 +10,10 @@ namespace Coffee.Domain.Handlers.UserHandlers;
 public class RefreshLoginUserHandler : Handler, IHandler<RefreshLoginUserCommand>
 {
 
-    private readonly IUserRepository _repository;
     private readonly ITokenService _tokenService;
 
-    public RefreshLoginUserHandler(IUserRepository repository, ITokenService tokenService)
+    public RefreshLoginUserHandler(ITokenService tokenService)
     {
-        _repository = repository;
         _tokenService = tokenService;
     }
 

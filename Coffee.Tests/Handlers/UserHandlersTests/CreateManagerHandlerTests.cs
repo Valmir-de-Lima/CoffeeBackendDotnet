@@ -2,7 +2,7 @@ namespace Coffee.Tests.Handlers.UserHandlerTests;
 
 [TestClass]
 [TestCategory("Handlers")]
-public class CreateUserHandlersTests
+public class CreateManagerHandlersTests
 {
     private readonly UserHandler _handler = new UserHandler(new MockUserRepository(), new MockTokenService(), new MockEmailService());
 
@@ -13,13 +13,11 @@ public class CreateUserHandlersTests
     [DataRow("superman", "superman@justice.com", "Teste.31122022")]
     public async Task ShouldReturnTrueSuccessWhenDatasAreValids(string name, string addres, string password)
     {
-        var command = new CreateUserCommand();
+        var command = new CreateManagerCommand();
         command.Name = name;
         command.Email = addres;
         command.Password = password;
 
-        command.SetUserType(EType.Manager);
-        command.SetUserName("batman-wayne-com");
         var _result = (CommandResult)await _handler.HandleAsync(command);
 
         Assert.IsTrue(_result.Success);
@@ -32,7 +30,7 @@ public class CreateUserHandlersTests
     [DataRow("superman superman superman superman superman superman", "superman@justice.com", "Teste.31122022")]
     public async Task ShouldReturnFalseSucessWhenNameIsInvalid(string name, string addres, string password)
     {
-        var command = new CreateUserCommand();
+        var command = new CreateManagerCommand();
         command.Name = name;
         command.Email = addres;
         command.Password = password;
@@ -49,7 +47,7 @@ public class CreateUserHandlersTests
     [DataRow("superman", "superman@justiceleague.com", "Teste.31122022")]
     public async Task ShouldReturnFalseSucessWhenEmailExists(string name, string addres, string password)
     {
-        var command = new CreateUserCommand();
+        var command = new CreateManagerCommand();
         command.Name = name;
         command.Email = addres;
         command.Password = password;
@@ -66,7 +64,7 @@ public class CreateUserHandlersTests
     [DataRow("superman", "superman@justice.com", "Tes.311")]
     public async Task ShouldReturnFalseSuccessWhenPasswordIsInvalid(string name, string addres, string password)
     {
-        var command = new CreateUserCommand();
+        var command = new CreateManagerCommand();
         command.Name = name;
         command.Email = addres;
         command.Password = password;
@@ -75,6 +73,5 @@ public class CreateUserHandlersTests
 
         Assert.IsFalse(_result.Success);
     }
-
 }
 
