@@ -28,6 +28,14 @@ public class UpdateTypeUserHandler : Handler, IHandler<UpdateTypeUserCommand>
             return new CommandResult(false, Notifications);
         }
 
+        var managerType = command.GetUserType();
+
+        if (managerType != EType.Manager)
+        {
+            AddNotification("command.GetUserType", "Informação indisponível");
+            return new CommandResult(false, Notifications);
+        }
+
         var email = new Email(command.Email);
 
         // Get user repository

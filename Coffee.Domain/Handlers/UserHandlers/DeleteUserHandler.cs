@@ -33,7 +33,7 @@ public class DeleteUserHandler : Handler, IHandler<DeleteUserCommand>
 
         if (managerType != EType.Manager)
         {
-            AddNotification("command.GetUserName", "Informação indisponível");
+            AddNotification("command.GetUserType", "Informação indisponível");
             return new CommandResult(false, Notifications);
         }
 
