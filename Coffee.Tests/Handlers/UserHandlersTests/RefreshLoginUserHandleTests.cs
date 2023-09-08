@@ -16,14 +16,14 @@ public class RefreshLoginUserHandlerTests
     [DataRow("superman@justiceleague.com", "Teste.31122022", EType.Customer)]
     public async Task ShouldReturnTrueSucessWhenDataAreValids(string adress, string password, EType type)
     {
-        _command = await LoginUsers(adress, password, type);
+        _command = await LoginUser(adress, password, type);
 
         var _result = (CommandResult)await _handler.HandleAsync(_command);
 
         Assert.IsTrue(_result.Success);
     }
 
-    private async Task<RefreshLoginUserCommand> LoginUsers(string adress, string password, EType type)
+    private async Task<RefreshLoginUserCommand> LoginUser(string adress, string password, EType type)
     {
         LoginUserCommand command = new();
         command.Email = adress;

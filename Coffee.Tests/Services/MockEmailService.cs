@@ -13,6 +13,7 @@ public class MockEmailService : IEmailService
         string fromEmail = "valmirblima7@gmail.com")
     {
         // Todas as informacoes necessarias para criar o servico de email encontra-se no appsettings.json -> Configuration.cs
+        Configuration.EmailBody = body;
         return true;
     }
 }
