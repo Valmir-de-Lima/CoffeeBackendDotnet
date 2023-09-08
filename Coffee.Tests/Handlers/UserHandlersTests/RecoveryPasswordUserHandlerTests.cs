@@ -24,6 +24,23 @@ public class RecoveryPasswordUserHandlerTests
 
     [TestMethod]
     [DataTestMethod]
+    [DataRow("batman.com")]
+    [DataRow("catwoman@.com")]
+    [DataRow("robin@robin")]
+    [DataRow("")]
+    public async Task ShouldReturnFalseSuccessWhenEmailIsInvalid(string addres)
+    {
+        var command = new RecoveryPasswordUserCommand();
+        command.Email = addres;
+
+        var _result = (CommandResult)await _handler.HandleAsync(command);
+
+        Assert.IsFalse(_result.Success);
+    }
+
+
+    [TestMethod]
+    [DataTestMethod]
     [DataRow("batman@batman.com")]
     [DataRow("catwoman@catwoman.com")]
     [DataRow("robin@robin.com")]
