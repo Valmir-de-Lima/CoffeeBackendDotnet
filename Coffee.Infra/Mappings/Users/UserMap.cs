@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Coffee.Domain.Models.User;
 
-namespace Coffee.Infra.Mappings;
+namespace Coffee.Infra.Mappings.Users;
 
 public class UserMap : IEntityTypeConfiguration<User>
 {
