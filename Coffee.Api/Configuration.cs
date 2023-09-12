@@ -5,8 +5,9 @@ namespace Coffee;
 public static class Configuration
 {
     public const string MANAGER = "Manager";
-    public const string EMPLOYEE = "Employee";
-    public const string CUSTUMER = "Custumer";
+    public const string BARISTA = "Barista";
+    public const string DELIVERYMAN = "Deliveryman";
+    public const string CUSTOMER = "Customer";
     public static string JwtKey = "";
     public static SmtpConfiguration Smtp = new();
 

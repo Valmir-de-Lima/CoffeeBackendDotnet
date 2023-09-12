@@ -2,19 +2,19 @@ using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using Coffee.Domain.Commands;
 using Coffee.Domain.Commands.Interfaces;
-using Coffee.Domain.Handlers.UserHandlers;
+using Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.IngredientHandlers;
 
-namespace Coffee.Api.Controllers.UsersController;
+namespace Coffee.Api.Controllers.ProductsController.PersonalizedCoffeesController.IngredientsController;
 
 [ApiController]
 [Route("")]
-public class UserControllerBase : ControllerBase
+public class IngredientControllerBase : ControllerBase
 {
-    private readonly UserHandler _userHandler;
+    private readonly IngredientHandler _ingredientHandler;
 
-    public UserControllerBase(UserHandler userHandler)
+    public IngredientControllerBase(IngredientHandler ingredientHandler)
     {
-        _userHandler = userHandler;
+        _ingredientHandler = ingredientHandler;
     }
 
     protected async Task<IActionResult> ExecuteCommandAsync<T>(T command)
@@ -25,8 +25,8 @@ public class UserControllerBase : ControllerBase
             command.SetUrlOfSite($"{Request.Scheme}://{Request.Host}");
             command.SetUser(User);
 
-            // Encontra o método HandleAsync no UserHandler para o tipo de comando correspondente
-            MethodInfo? handleMethod = _userHandler.GetType()
+            // Encontra o método HandleAsync no IngredientHandler para o tipo de comando correspondente
+            MethodInfo? handleMethod = _ingredientHandler.GetType()
                 .GetMethods()
                 .FirstOrDefault(m =>
                     m.Name == "HandleAsync" &&
@@ -38,7 +38,7 @@ public class UserControllerBase : ControllerBase
                 throw new Exception("Método HandleAsync não encontrado para o tipo de comando.");
             }
 
-            var result = await (Task<ICommandResult>)handleMethod.Invoke(_userHandler, new object[] { command })!;
+            var result = await (Task<ICommandResult>)handleMethod.Invoke(_ingredientHandler, new object[] { command })!;
 
             return Ok(result);
         }

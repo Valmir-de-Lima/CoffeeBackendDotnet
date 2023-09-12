@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Coffee.Api.Services;
 using Coffee.Domain.Handlers.UserHandlers;
+using Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.IngredientHandlers;
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Domain.Services;
 using Coffee.Infra.Data;
 using Coffee.Infra.Repositories.UsersRepository;
+using Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffees;
 
 namespace Coffee.Api.Extensions;
 
@@ -45,9 +47,14 @@ public static class BuilderExtensions
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
         builder.Services.AddDbContext<StoreDataContext>(opt => opt.UseInMemoryDatabase(connectionString));
+
         builder.Services.AddTransient<IUserRepository, UserRepository>();
         builder.Services.AddTransient<IRefreshLoginUserRepository, RefreshLoginUserRepository>();
+        builder.Services.AddTransient<IIngredientRepository, IngredientRepository>();
+
         builder.Services.AddTransient<UserHandler, UserHandler>();
+        builder.Services.AddTransient<IngredientHandler, IngredientHandler>();
+
         builder.Services.AddTransient<ITokenService, TokenService>();
         builder.Services.AddTransient<IEmailService, EmailService>();
     }
