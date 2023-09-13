@@ -1,23 +1,23 @@
 using Coffee.Domain.Enums;
 using Coffee.Domain.Commands;
 using Coffee.Domain.Commands.Interfaces;
-using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.IngredientCommands;
+using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.CoffeCommands;
 using Coffee.Domain.Handlers.Interfaces;
 using Coffee.Domain.Repositories.Interfaces;
 
-namespace Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.IngredientHandlers;
+namespace Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.CoffeHandlers;
 
-public class DeleteIngredientHandler : Handler, IHandler<DeleteIngredientCommand>
+public class DeleteCoffeHandler : Handler, IHandler<DeleteCoffeCommand>
 {
 
-    private readonly IIngredientRepository _repository;
+    private readonly ICoffeRepository _repository;
 
-    public DeleteIngredientHandler(IIngredientRepository repository)
+    public DeleteCoffeHandler(ICoffeRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<ICommandResult> HandleAsync(DeleteIngredientCommand command)
+    public async Task<ICommandResult> HandleAsync(DeleteCoffeCommand command)
     {
         // Fail Fast Validations
         command.Validate();
@@ -35,18 +35,18 @@ public class DeleteIngredientHandler : Handler, IHandler<DeleteIngredientCommand
             return new CommandResult(false, Notifications);
         }
 
-        var ingredient = await _repository.GetByDescriptionAsync(command.Description);
+        var coffe = await _repository.GetByDescriptionAsync(command.Description);
 
-        // Query ingredient exist
-        if (ingredient is null)
+        // Query coffee exist
+        if (coffe is null)
         {
-            AddNotification(command.Description, "Ingrediente não cadastrado");
+            AddNotification(command.Description, "Café não cadastrado");
             return new CommandResult(false, Notifications);
         }
 
         // Delete database
-        _repository.Delete(ingredient);
+        _repository.Delete(coffe);
 
-        return new CommandResult(true, new IngredientCommandResult(ingredient));
+        return new CommandResult(true, new CoffeCommandResult(coffe));
     }
 }

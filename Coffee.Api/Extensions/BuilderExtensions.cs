@@ -3,8 +3,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Coffee.Api.Services;
+
 using Coffee.Domain.Handlers.UserHandlers;
+using Coffee.Domain.Handlers.ProductHandlers.PastryHandlers;
 using Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.IngredientHandlers;
+using Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.CoffeHandlers;
+
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Domain.Services;
 using Coffee.Infra.Data;
@@ -57,7 +61,9 @@ public static class BuilderExtensions
         builder.Services.AddTransient<ICoffeRepository, CoffeRepository>();
 
         builder.Services.AddTransient<UserHandler, UserHandler>();
+        builder.Services.AddTransient<PastryHandler, PastryHandler>();
         builder.Services.AddTransient<IngredientHandler, IngredientHandler>();
+        builder.Services.AddTransient<CoffeHandler, CoffeHandler>();
 
         builder.Services.AddTransient<ITokenService, TokenService>();
         builder.Services.AddTransient<IEmailService, EmailService>();

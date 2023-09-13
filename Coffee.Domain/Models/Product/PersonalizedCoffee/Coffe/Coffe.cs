@@ -16,7 +16,7 @@ public class Coffe : Model
 
         // Design by contracts
         AddNotifications(
-            new CreateCoffeeContract(this)
+            new CreateCoffeContract(this)
         );
     }
 

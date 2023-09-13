@@ -1,23 +1,24 @@
 using Coffee.Domain.Enums;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Coffe;
 using Coffee.Domain.Commands;
 using Coffee.Domain.Commands.Interfaces;
-using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.IngredientCommands;
+using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.CoffeCommands;
 using Coffee.Domain.Handlers.Interfaces;
 using Coffee.Domain.Repositories.Interfaces;
 
-namespace Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.IngredientHandlers;
+namespace Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.CoffeHandlers;
 
-public class UpdateIngredientHandler : Handler, IHandler<UpdateIngredientCommand>
+public class CreateCoffeHandler : Handler, IHandler<CreateCoffeCommand>
 {
 
-    private readonly IIngredientRepository _repository;
+    private readonly ICoffeRepository _repository;
 
-    public UpdateIngredientHandler(IIngredientRepository repository)
+    public CreateCoffeHandler(ICoffeRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<ICommandResult> HandleAsync(UpdateIngredientCommand command)
+    public async Task<ICommandResult> HandleAsync(CreateCoffeCommand command)
     {
         // Fail Fast Validations
         command.Validate();
@@ -35,12 +36,12 @@ public class UpdateIngredientHandler : Handler, IHandler<UpdateIngredientCommand
             return new CommandResult(false, Notifications);
         }
 
-        var ingredient = await _repository.GetByDescriptionAsync(command.Description);
+        var coffe = await _repository.GetByDescriptionAsync(command.Description);
 
-        // Query ingredient exist
-        if (ingredient is null)
+        // Query coffee exist
+        if (coffe is not null)
         {
-            AddNotification(command.Description, "Ingrediente não cadastrado");
+            AddNotification(command.Description, "Café já cadastrado");
             return new CommandResult(false, Notifications);
         }
 
@@ -50,12 +51,12 @@ public class UpdateIngredientHandler : Handler, IHandler<UpdateIngredientCommand
         bool.TryParse(command.Active, out activeBool);
 
 
-        // Update entity
-        ingredient.Update(command.Description, priceDecimal, activeBool);
+        // Build entity
+        coffe = new Coffe(command.Description, priceDecimal, activeBool);
 
         // Save database
-        _repository.Update(ingredient);
+        await _repository.CreateAsync(coffe);
 
-        return new CommandResult(true, new IngredientCommandResult(ingredient));
+        return new CommandResult(true, new CoffeCommandResult(coffe));
     }
 }

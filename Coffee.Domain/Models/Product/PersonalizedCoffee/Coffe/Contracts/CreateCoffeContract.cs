@@ -2,9 +2,9 @@ using Flunt.Validations;
 
 namespace Coffee.Domain.Models.Product.PersonalizedCoffee.Coffe.Contracts;
 
-public class CreateCoffeeContract : Contract<Coffe>
+public class CreateCoffeContract : Contract<Coffe>
 {
-    public CreateCoffeeContract(Coffe ingredient)
+    public CreateCoffeContract(Coffe ingredient)
     {
         Requires()
                 .IsGreaterOrEqualsThan(ingredient.Description.Replace(" ", ""), 3, ingredient.Description, "O nome requer no minimo 3 letras")

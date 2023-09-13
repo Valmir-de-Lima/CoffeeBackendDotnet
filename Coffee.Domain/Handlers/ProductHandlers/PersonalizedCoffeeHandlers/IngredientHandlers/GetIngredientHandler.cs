@@ -1,5 +1,3 @@
-using Coffee.Domain.Enums;
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
 using Coffee.Domain.Commands;
 using Coffee.Domain.Commands.Interfaces;
 using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.IngredientCommands;

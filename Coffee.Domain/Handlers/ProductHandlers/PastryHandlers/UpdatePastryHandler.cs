@@ -1,23 +1,23 @@
 using Coffee.Domain.Enums;
 using Coffee.Domain.Commands;
 using Coffee.Domain.Commands.Interfaces;
-using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.IngredientCommands;
+using Coffee.Domain.Commands.ProductCommands.PastryCommands;
 using Coffee.Domain.Handlers.Interfaces;
 using Coffee.Domain.Repositories.Interfaces;
 
-namespace Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.IngredientHandlers;
+namespace Coffee.Domain.Handlers.ProductHandlers.PastryHandlers;
 
-public class UpdateIngredientHandler : Handler, IHandler<UpdateIngredientCommand>
+public class UpdatePastryHandler : Handler, IHandler<UpdatePastryCommand>
 {
 
-    private readonly IIngredientRepository _repository;
+    private readonly IPastryRepository _repository;
 
-    public UpdateIngredientHandler(IIngredientRepository repository)
+    public UpdatePastryHandler(IPastryRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<ICommandResult> HandleAsync(UpdateIngredientCommand command)
+    public async Task<ICommandResult> HandleAsync(UpdatePastryCommand command)
     {
         // Fail Fast Validations
         command.Validate();
@@ -35,12 +35,12 @@ public class UpdateIngredientHandler : Handler, IHandler<UpdateIngredientCommand
             return new CommandResult(false, Notifications);
         }
 
-        var ingredient = await _repository.GetByDescriptionAsync(command.Description);
+        var pastry = await _repository.GetByDescriptionAsync(command.Description);
 
-        // Query ingredient exist
-        if (ingredient is null)
+        // Query pastry exist
+        if (pastry is null)
         {
-            AddNotification(command.Description, "Ingrediente não cadastrado");
+            AddNotification(command.Description, "Acompanhamento não cadastrado");
             return new CommandResult(false, Notifications);
         }
 
@@ -51,11 +51,11 @@ public class UpdateIngredientHandler : Handler, IHandler<UpdateIngredientCommand
 
 
         // Update entity
-        ingredient.Update(command.Description, priceDecimal, activeBool);
+        pastry.Update(command.Description, priceDecimal, activeBool);
 
         // Save database
-        _repository.Update(ingredient);
+        _repository.Update(pastry);
 
-        return new CommandResult(true, new IngredientCommandResult(ingredient));
+        return new CommandResult(true, new PastryCommandResult(pastry));
     }
 }

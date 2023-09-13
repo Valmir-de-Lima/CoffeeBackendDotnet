@@ -45,14 +45,14 @@ public partial class IngredientController : IngredientControllerBase
     }
 
     [HttpGet("v1/products/personalizedcoffees/ingredients/description")]
-    public async Task<IActionResult> GetIngredient([FromBody] GetIngredientCommand command)
+    public async Task<IActionResult> Get([FromBody] GetIngredientCommand command)
     {
         return await ExecuteCommandAsync(command);
     }
 
     [Authorize(Roles = $"{Configuration.MANAGER},{Configuration.BARISTA}")]
     [HttpPut("v1/products/personalizedcoffees/ingredients")]
-    public async Task<IActionResult> UpdateUser([FromBody] UpdateIngredientCommand command)
+    public async Task<IActionResult> Update([FromBody] UpdateIngredientCommand command)
     {
         return await ExecuteCommandAsync(command);
     }
