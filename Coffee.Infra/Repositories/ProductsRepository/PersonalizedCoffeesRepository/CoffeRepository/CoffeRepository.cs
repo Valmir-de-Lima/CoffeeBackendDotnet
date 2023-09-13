@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.IngredientCommands;
+using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.CoffeCommands;
 using Coffee.Domain.Models.Product.PersonalizedCoffee.Coffe;
 using Coffee.Domain.Queries;
 using Coffee.Domain.Repositories.Interfaces;
@@ -19,13 +19,13 @@ public class CoffeRepository : Repository<Coffe>, ICoffeRepository
 
     public async Task<dynamic> GetAllAsync(int skip = 0, int take = 25)
     {
-        var count = await _context.Ingredients
+        var count = await _context.Coffes
                             .AsNoTracking()
                             .CountAsync();
-        var list = new List<IngredientCommandResult>(
-                await _context.Ingredients
+        var list = new List<CoffeCommandResult>(
+                await _context.Coffes
                             .AsNoTracking()
-                            .Select(x => new IngredientCommandResult(x))
+                            .Select(x => new CoffeCommandResult(x))
                             .Skip(skip)
                             .Take(take)
                             .ToListAsync()
