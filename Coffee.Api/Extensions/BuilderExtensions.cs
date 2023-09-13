@@ -9,7 +9,9 @@ using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Domain.Services;
 using Coffee.Infra.Data;
 using Coffee.Infra.Repositories.UsersRepository;
-using Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffees;
+using Coffee.Infra.Repositories.ProductsRepository.PastryRepository;
+using Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffeesRepository.IngredientRepository;
+using Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffeesRepository.CoffeRepository;
 
 namespace Coffee.Api.Extensions;
 
@@ -51,6 +53,8 @@ public static class BuilderExtensions
         builder.Services.AddTransient<IUserRepository, UserRepository>();
         builder.Services.AddTransient<IRefreshLoginUserRepository, RefreshLoginUserRepository>();
         builder.Services.AddTransient<IIngredientRepository, IngredientRepository>();
+        builder.Services.AddTransient<IPastryRepository, PastryRepository>();
+        builder.Services.AddTransient<ICoffeRepository, CoffeRepository>();
 
         builder.Services.AddTransient<UserHandler, UserHandler>();
         builder.Services.AddTransient<IngredientHandler, IngredientHandler>();

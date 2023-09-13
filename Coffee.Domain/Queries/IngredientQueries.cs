@@ -1,5 +1,4 @@
 using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
-using Coffee.Domain.ValueObjects;
 using System.Linq.Expressions;
 
 namespace Coffee.Domain.Queries;

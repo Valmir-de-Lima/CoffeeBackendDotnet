@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
+using Coffee.Domain.Models.Product.Pastry;
 
-namespace Coffee.Infra.Mappings.Products.PersonalizedCoffees;
+namespace Coffee.Infra.Mappings.Products.Pastrys;
 
-public class IngredientMap : IEntityTypeConfiguration<Ingredient>
+public class PastryMap : IEntityTypeConfiguration<Pastry>
 {
-    public void Configure(EntityTypeBuilder<Ingredient> builder)
+    public void Configure(EntityTypeBuilder<Pastry> builder)
     {
         // Tabela
         builder.ToTable("Ingredient");

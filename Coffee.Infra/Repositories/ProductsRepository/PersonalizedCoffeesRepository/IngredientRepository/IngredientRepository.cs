@@ -5,7 +5,7 @@ using Coffee.Domain.Queries;
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Infra.Data;
 
-namespace Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffees;
+namespace Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffeesRepository.IngredientRepository;
 
 public class IngredientRepository : Repository<Ingredient>, IIngredientRepository
 {
