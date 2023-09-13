@@ -14,5 +14,4 @@ public static class IngredientQueries
     {
         return x => x.Description == description;
     }
-
 }
