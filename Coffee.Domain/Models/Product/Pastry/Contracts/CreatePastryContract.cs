@@ -4,12 +4,12 @@ namespace Coffee.Domain.Models.Product.Pastry.Contracts;
 
 public class CreatePastryContract : Contract<Pastry>
 {
-    public CreatePastryContract(Pastry ingredient)
+    public CreatePastryContract(Pastry pastry)
     {
         Requires()
-                .IsGreaterOrEqualsThan(ingredient.Description.Replace(" ", ""), 3, ingredient.Description, "O nome requer no minimo 3 letras")
-                .IsLowerOrEqualsThan(ingredient.Description, 40, ingredient.Description, "O nome deve conter no maximo 40 caracteres")
-                .IsNotNullOrEmpty(ingredient.Active.ToString(), ingredient.Active.ToString(), "O valor de ativação é requerido")
-                .IsGreaterThan(ingredient.Price, 0, ingredient.Price.ToString(), "O valor do ingrediente deve ser maior do que zero");
+                .IsGreaterOrEqualsThan(pastry.Description.Replace(" ", ""), 3, pastry.Description, "O nome requer no minimo 3 letras")
+                .IsLowerOrEqualsThan(pastry.Description, 40, pastry.Description, "O nome deve conter no maximo 40 caracteres")
+                .IsNotNullOrEmpty(pastry.Active.ToString(), pastry.Active.ToString(), "O valor de ativação é requerido")
+                .IsGreaterThan(pastry.Price, 0, pastry.Price.ToString(), "O valor do acompanhamento deve ser maior do que zero");
     }
 }
