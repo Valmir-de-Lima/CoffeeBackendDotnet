@@ -9,9 +9,9 @@ namespace Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffeesReposi
 
 public class CoffeRepository : Repository<Coffe>, ICoffeRepository
 {
-    private readonly StoreDataContext _context;
+    private readonly CoffeeDataContext _context;
 
-    public CoffeRepository(StoreDataContext context) :
+    public CoffeRepository(CoffeeDataContext context) :
     base(context)
     {
         _context = context;

@@ -4,18 +4,16 @@ namespace Coffee.Domain.Models.Product.PersonalizedCoffee;
 
 public class PersonalizedCoffee : Model
 {
-    private IList<Ingredient.Ingredient> _ingredients = new List<Ingredient.Ingredient>();
-
     public PersonalizedCoffee()
     {
 
     }
-    public PersonalizedCoffee(Guid customerId, Guid coffeId, string description, decimal unitPrice)
+    public PersonalizedCoffee(Guid customerId, Guid coffeId, string description, decimal priceCoffee)
     {
         CustomerId = customerId;
         CoffeId = coffeId;
         DescriptionCoffe = description;
-        PriceCoffe = unitPrice;
+        PriceCoffe = priceCoffee;
         TotalPrice = PriceCoffe;
         QuantityIngredient = 0;
 
@@ -26,27 +24,35 @@ public class PersonalizedCoffee : Model
     }
 
     public Guid CustomerId { get; }
-    public Guid CoffeId { get; }
+    public Guid CoffeId { get; private set; }
     public string DescriptionCoffe { get; private set; } = "";
     public decimal PriceCoffe { get; private set; }
     public int QuantityIngredient { get; private set; }
     public decimal TotalPrice { get; private set; }
 
-    public IReadOnlyCollection<Ingredient.Ingredient> Ingredients { get => _ingredients.ToArray(); }
+    public ICollection<Ingredient.Ingredient> Ingredients { get; private set; } = new List<Ingredient.Ingredient>();
 
     public void AddIngredient(Ingredient.Ingredient ingredient)
     {
-        _ingredients.Add(ingredient);
-        UpdateQuantityAndTotalPrice(_ingredients);
+        Ingredients.Add(ingredient);
+        UpdateQuantityAndTotalPrice(Ingredients);
     }
 
     public void RemoveIngredient(Ingredient.Ingredient ingredient)
     {
-        _ingredients.Remove(ingredient);
-        UpdateQuantityAndTotalPrice(_ingredients);
+        Ingredients.Remove(ingredient);
+        UpdateQuantityAndTotalPrice(Ingredients);
     }
 
-    private void UpdateQuantityAndTotalPrice(IList<Ingredient.Ingredient> ingredients)
+    public void Update(Guid coffeId, string description, decimal priceCoffee)
+    {
+        CoffeId = coffeId;
+        DescriptionCoffe = description;
+        PriceCoffe = priceCoffee;
+        UpdateQuantityAndTotalPrice(Ingredients);
+    }
+
+    private void UpdateQuantityAndTotalPrice(ICollection<Ingredient.Ingredient> ingredients)
     {
         QuantityIngredient = ingredients.Count;
 

@@ -24,6 +24,8 @@ public class Ingredient : Model
     public decimal Price { get; private set; }
     public bool Active { get; private set; }
 
+    public ICollection<PersonalizedCoffee> PersonalizedCoffees { get; private set; } = new List<PersonalizedCoffee>();
+
     public void Update(string description, decimal price, bool active)
     {
         Description = description;

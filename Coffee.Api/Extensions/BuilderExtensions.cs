@@ -52,7 +52,7 @@ public static class BuilderExtensions
     {
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
-        builder.Services.AddDbContext<StoreDataContext>(opt => opt.UseInMemoryDatabase(connectionString));
+        builder.Services.AddDbContext<CoffeeDataContext>(opt => opt.UseInMemoryDatabase(connectionString));
 
         builder.Services.AddTransient<IUserRepository, UserRepository>();
         builder.Services.AddTransient<IRefreshLoginUserRepository, RefreshLoginUserRepository>();

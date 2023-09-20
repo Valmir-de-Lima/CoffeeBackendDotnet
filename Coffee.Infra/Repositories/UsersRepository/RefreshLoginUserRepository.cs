@@ -7,10 +7,10 @@ namespace Coffee.Infra.Repositories.UsersRepository;
 
 public class RefreshLoginUserRepository : IRefreshLoginUserRepository
 {
-    private readonly StoreDataContext _context;
+    private readonly CoffeeDataContext _context;
     private Repository<RefreshLoginUser> _repository;
 
-    public RefreshLoginUserRepository(StoreDataContext context)
+    public RefreshLoginUserRepository(CoffeeDataContext context)
     {
         _context = context;
         _repository = new Repository<RefreshLoginUser>(context);

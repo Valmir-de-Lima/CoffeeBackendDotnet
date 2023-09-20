@@ -9,9 +9,9 @@ namespace Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffeesReposi
 
 public class IngredientRepository : Repository<Ingredient>, IIngredientRepository
 {
-    private readonly StoreDataContext _context;
+    private readonly CoffeeDataContext _context;
 
-    public IngredientRepository(StoreDataContext context) :
+    public IngredientRepository(CoffeeDataContext context) :
     base(context)
     {
         _context = context;

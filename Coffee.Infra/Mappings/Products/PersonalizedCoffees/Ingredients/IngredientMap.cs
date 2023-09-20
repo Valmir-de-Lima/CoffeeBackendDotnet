@@ -26,7 +26,7 @@ public class IngredientMap : IEntityTypeConfiguration<Ingredient>
 
         builder.Property(x => x.Price)
             .IsRequired()
-            .HasColumnName("Description")
+            .HasColumnName("Price")
             .HasColumnType("decimal(18, 2)");
 
         // Índices

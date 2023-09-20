@@ -10,9 +10,9 @@ namespace Coffee.Infra.Repositories.UsersRepository;
 
 public class UserRepository : Repository<User>, IUserRepository
 {
-    private readonly StoreDataContext _context;
+    private readonly CoffeeDataContext _context;
 
-    public UserRepository(StoreDataContext context) :
+    public UserRepository(CoffeeDataContext context) :
     base(context)
     {
         _context = context;

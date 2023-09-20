@@ -6,6 +6,7 @@ namespace Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands;
 
 public class UpdatePersonalizedCoffeeCommand : Command, ICommand
 {
+    public string PersonalizedCoffeeId { get; } = "";
     public string CustomerId { get; } = "";
     public string CoffeId { get; } = "";
     public string DescriptionCoffe { get; private set; } = "";
@@ -15,8 +16,11 @@ public class UpdatePersonalizedCoffeeCommand : Command, ICommand
     {
         decimal priceCoffe;
         decimal.TryParse(PriceCoffe, out priceCoffe);
-        AddNotifications(new CreatePersonalizedCoffeeContract(
-            new PersonalizedCoffee(new Guid(CustomerId), new Guid(CoffeId), DescriptionCoffe, priceCoffe)
-        ));
+        AddNotifications(
+            new CreatePersonalizedCoffeeContract(
+                new PersonalizedCoffee(new Guid(CustomerId), new Guid(CoffeId), DescriptionCoffe, priceCoffe)
+            ),
+            new VerifyIdPersonalizedCoffeeContract(PersonalizedCoffeeId)
+        );
     }
 }

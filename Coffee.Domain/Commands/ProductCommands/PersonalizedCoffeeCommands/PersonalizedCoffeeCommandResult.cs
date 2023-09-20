@@ -1,4 +1,5 @@
 using Coffee.Domain.Models.Product.PersonalizedCoffee;
+using Newtonsoft.Json;
 
 namespace Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands;
 
@@ -12,9 +13,10 @@ public class PersonalizedCoffeeCommandResult
         QuantityIngredient = personalizedCoffee.QuantityIngredient.ToString();
         TotalPrice = personalizedCoffee.TotalPrice.ToString();
 
-        var ingredients = personalizedCoffee.Ingredients.ToArray().ToString();
-        if (ingredients is not null)
-            Ingredients = ingredients;
+        Ingredients = JsonConvert.SerializeObject(personalizedCoffee.Ingredients);
+        //        var ingredients = personalizedCoffee.Ingredients.ToArray().ToString();
+        //        if (ingredients is not null)
+        //            Ingredients = ingredients;
     }
 
     public string CustomerId { get; } = "";

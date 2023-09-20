@@ -9,9 +9,9 @@ namespace Coffee.Infra.Repositories.ProductsRepository.PastryRepository;
 
 public class PastryRepository : Repository<Pastry>, IPastryRepository
 {
-    private readonly StoreDataContext _context;
+    private readonly CoffeeDataContext _context;
 
-    public PastryRepository(StoreDataContext context) :
+    public PastryRepository(CoffeeDataContext context) :
     base(context)
     {
         _context = context;

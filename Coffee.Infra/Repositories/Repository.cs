@@ -7,8 +7,8 @@ namespace Coffee.Infra.Repositories;
 public class Repository<T> : IRepository<T>
 where T : Model
 {
-    private readonly StoreDataContext _context;
-    public Repository(StoreDataContext context)
+    private readonly CoffeeDataContext _context;
+    public Repository(CoffeeDataContext context)
     {
         _context = context;
     }

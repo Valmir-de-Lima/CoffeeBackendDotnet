@@ -6,12 +6,11 @@ namespace Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands;
 
 public class GetPersonalizedCoffeeCommand : Command, ICommand
 {
-    public string CustomerId { get; } = "";
-    public string CoffeId { get; } = "";
+    public string PersonalizedCoffeeId { get; } = "";
     public void Validate()
     {
-        AddNotifications(new CreatePersonalizedCoffeeContract(
-            new PersonalizedCoffee(new Guid(CustomerId), new Guid(CoffeId), "Cafe personalizado", 1)
-        ));
+        AddNotifications(
+            new VerifyIdPersonalizedCoffeeContract(PersonalizedCoffeeId)
+        );
     }
 }
