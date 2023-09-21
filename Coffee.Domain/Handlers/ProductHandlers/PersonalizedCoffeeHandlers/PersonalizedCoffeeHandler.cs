@@ -9,14 +9,17 @@ public class PersonalizedCoffeeHandler : Handler,
     IHandler<CreatePersonalizedCoffeeCommand>,
     IHandler<GetPersonalizedCoffeeCommand>,
     IHandler<UpdatePersonalizedCoffeeCommand>,
-    IHandler<DeletePersonalizedCoffeeCommand>
-
+    IHandler<DeletePersonalizedCoffeeCommand>,
+    IHandler<AddIngredientPersonalizedCoffeeCommand>,
+    IHandler<RemoveIngredientPersonalizedCoffeeCommand>
 {
     private readonly IPersonalizedCoffeeRepository _repository;
+    private readonly IIngredientRepository _ingredientRepository;
 
-    public PersonalizedCoffeeHandler(IPersonalizedCoffeeRepository repository)
+    public PersonalizedCoffeeHandler(IPersonalizedCoffeeRepository repository, IIngredientRepository ingredientRepository)
     {
         _repository = repository;
+        _ingredientRepository = ingredientRepository;
     }
 
     public async Task<ICommandResult> HandleAsync(CreatePersonalizedCoffeeCommand command)
@@ -37,5 +40,14 @@ public class PersonalizedCoffeeHandler : Handler,
     public async Task<ICommandResult> HandleAsync(DeletePersonalizedCoffeeCommand command)
     {
         return await new DeletePersonalizedCoffeeHandler(_repository).HandleAsync(command);
+    }
+
+    public async Task<ICommandResult> HandleAsync(AddIngredientPersonalizedCoffeeCommand command)
+    {
+        return await new AddIngredientPersonalizedCoffeeHandler(_repository, _ingredientRepository).HandleAsync(command);
+    }
+    public async Task<ICommandResult> HandleAsync(RemoveIngredientPersonalizedCoffeeCommand command)
+    {
+        return await new RemoveIngredientPersonalizedCoffeeHandler(_repository, _ingredientRepository).HandleAsync(command);
     }
 }

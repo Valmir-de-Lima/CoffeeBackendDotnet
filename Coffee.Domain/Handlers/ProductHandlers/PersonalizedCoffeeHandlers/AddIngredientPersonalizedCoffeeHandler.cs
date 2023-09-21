@@ -6,16 +6,19 @@ using Coffee.Domain.Repositories.Interfaces;
 
 namespace Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers;
 
-public class UpdatePersonalizedCoffeeHandler : Handler, IHandler<UpdatePersonalizedCoffeeCommand>
+public class AddIngredientPersonalizedCoffeeHandler : Handler, IHandler<AddIngredientPersonalizedCoffeeCommand>
 {
-    private readonly IPersonalizedCoffeeRepository _repository;
 
-    public UpdatePersonalizedCoffeeHandler(IPersonalizedCoffeeRepository repository)
+    private readonly IPersonalizedCoffeeRepository _repository;
+    private readonly IIngredientRepository _ingredientRepository;
+
+    public AddIngredientPersonalizedCoffeeHandler(IPersonalizedCoffeeRepository repository, IIngredientRepository ingredientRepository)
     {
         _repository = repository;
+        _ingredientRepository = ingredientRepository;
     }
 
-    public async Task<ICommandResult> HandleAsync(UpdatePersonalizedCoffeeCommand command)
+    public async Task<ICommandResult> HandleAsync(AddIngredientPersonalizedCoffeeCommand command)
     {
         // Fail Fast Validations
         command.Validate();
@@ -34,16 +37,26 @@ public class UpdatePersonalizedCoffeeHandler : Handler, IHandler<UpdatePersonali
             return new CommandResult(false, Notifications);
         }
 
-        decimal priceCoffe;
-        decimal.TryParse(command.PriceCoffe, out priceCoffe);
+        var ingredient = await _ingredientRepository.GetByIdAsync(new Guid(command.IngredientId));
+
+        // Query ingredient exist
+        if (ingredient is null)
+        {
+            AddNotification(command.IngredientId, "Ingrediente não cadastrado");
+            return new CommandResult(false, Notifications);
+        }
+
+        // Query ingredient available
+        if (!ingredient.Active)
+        {
+            AddNotification(command.IngredientId, "Ingrediente não disponível");
+            return new CommandResult(false, Notifications);
+        }
 
         // update model
-        personalizedCoffee.Update(
-            new Guid(command.CoffeId),
-            command.DescriptionCoffe,
-            priceCoffe);
+        personalizedCoffee.AddIngredient(ingredient);
 
-        // Save database        
+        // Save database
         _repository.Update(personalizedCoffee);
 
         return new CommandResult(true, new PersonalizedCoffeeCommandResult(personalizedCoffee));
