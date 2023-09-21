@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -71,5 +72,22 @@ public static class BuilderExtensions
 
         builder.Services.AddTransient<ITokenService, TokenService>();
         builder.Services.AddTransient<IEmailService, EmailService>();
+    }
+
+    public static void ConfigureOthers(this WebApplicationBuilder builder)
+    {
+        builder
+            .Services
+            .AddControllers()
+            .ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; })
+            .AddJsonOptions(x =>
+            {
+                // Para evitar que na serializacao do objeto gere um circulo infinito
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+
+                // Nao serializa objetos que sao nulos, ou que possuem o valor zero, 
+                // ou seja, objetos nulos nao sao renderizados na tela
+                //x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+            });
     }
 }

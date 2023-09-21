@@ -2,11 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Coffee.Domain.Models.User;
 using Coffee.Domain.Models.Product.Pastry;
 using Coffee.Domain.Models.Product.PersonalizedCoffee;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.IngredientsSelected;
 using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
 using Coffee.Domain.Models.Product.PersonalizedCoffee.Coffe;
 using Coffee.Infra.Mappings.Users;
 using Coffee.Infra.Mappings.Products.Pastrys;
 using Coffee.Infra.Mappings.Products.PersonalizedCoffees;
+using Coffee.Infra.Mappings.Products.PersonalizedCoffees.IngredientsSelected;
 using Coffee.Infra.Mappings.Products.PersonalizedCoffees.Ingredients;
 using Coffee.Infra.Mappings.Products.PersonalizedCoffees.Coffes;
 
@@ -25,6 +27,7 @@ public class CoffeeDataContext : DbContext
     public DbSet<Pastry> Pastrys { get; set; } = null!;
     public DbSet<Coffe> Coffes { get; set; } = null!;
     public DbSet<PersonalizedCoffee> PersonalizedCoffees { get; set; } = null!;
+    public DbSet<IngredientSelected> IngredientSelecteds { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,5 +38,6 @@ public class CoffeeDataContext : DbContext
         modelBuilder.ApplyConfiguration(new PastryMap());
         modelBuilder.ApplyConfiguration(new CoffeMap());
         modelBuilder.ApplyConfiguration(new PersonalizedCoffeeMap());
+        modelBuilder.ApplyConfiguration(new IngredientSelectedMap());
     }
 }

@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 builder.LoadConfiguration();
 builder.ConfigureAuthentication();
 builder.ConfigureServices();
+builder.ConfigureOthers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

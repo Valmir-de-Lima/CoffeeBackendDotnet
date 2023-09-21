@@ -44,16 +44,6 @@ public class PersonalizedCoffeeMap : IEntityTypeConfiguration<PersonalizedCoffee
             .HasColumnName("TotalPrice")
             .HasColumnType("decimal(18, 2)");
 
-        // Configurar a relação muitos-para-muitos com Ingredient
-        builder
-                .HasMany(pc => pc.Ingredients)
-                .WithMany(i => i.PersonalizedCoffees)
-                .UsingEntity<Dictionary<string, object>>(
-                    "PersonalizedCoffeeIngredient",
-                    j => j.HasOne<Ingredient>().WithMany(),
-                    j => j.HasOne<PersonalizedCoffee>().WithMany()
-                );
-
         // Índices
         builder
             .HasIndex(x => x.DescriptionCoffe, "IX_Ingredient_Description")

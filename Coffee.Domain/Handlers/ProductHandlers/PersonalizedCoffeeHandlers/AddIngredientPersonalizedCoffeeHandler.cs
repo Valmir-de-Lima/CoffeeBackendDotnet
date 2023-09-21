@@ -3,6 +3,8 @@ using Coffee.Domain.Commands.Interfaces;
 using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands;
 using Coffee.Domain.Handlers.Interfaces;
 using Coffee.Domain.Repositories.Interfaces;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.IngredientsSelected;
+
 
 namespace Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers;
 
@@ -53,8 +55,10 @@ public class AddIngredientPersonalizedCoffeeHandler : Handler, IHandler<AddIngre
             return new CommandResult(false, Notifications);
         }
 
+        var ingredientSelected = new IngredientSelected(ingredient.Id, ingredient.Description, ingredient.Price, ingredient.Active);
+
         // update model
-        personalizedCoffee.AddIngredient(ingredient);
+        personalizedCoffee.AddIngredient(ingredientSelected);
 
         // Save database
         _repository.Update(personalizedCoffee);

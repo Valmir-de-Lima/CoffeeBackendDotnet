@@ -6,7 +6,7 @@ namespace Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands;
 
 public class GetPersonalizedCoffeeCommand : Command, ICommand
 {
-    public string PersonalizedCoffeeId { get; } = "";
+    public string PersonalizedCoffeeId { get; set; } = "";
     public void Validate()
     {
         AddNotifications(
