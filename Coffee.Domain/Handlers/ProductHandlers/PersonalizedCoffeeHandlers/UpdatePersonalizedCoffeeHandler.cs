@@ -9,10 +9,12 @@ namespace Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers;
 public class UpdatePersonalizedCoffeeHandler : Handler, IHandler<UpdatePersonalizedCoffeeCommand>
 {
     private readonly IPersonalizedCoffeeRepository _repository;
+    private readonly ICoffeRepository _coffeRepository;
 
-    public UpdatePersonalizedCoffeeHandler(IPersonalizedCoffeeRepository repository)
+    public UpdatePersonalizedCoffeeHandler(IPersonalizedCoffeeRepository repository, ICoffeRepository coffeRepository)
     {
         _repository = repository;
+        _coffeRepository = coffeRepository;
     }
 
     public async Task<ICommandResult> HandleAsync(UpdatePersonalizedCoffeeCommand command)
@@ -31,6 +33,22 @@ public class UpdatePersonalizedCoffeeHandler : Handler, IHandler<UpdatePersonali
         if (personalizedCoffee is null)
         {
             AddNotification(command.PersonalizedCoffeeId, "Café personalizado não cadastrado");
+            return new CommandResult(false, Notifications);
+        }
+
+        var coffee = await _coffeRepository.GetByIdAsync(new Guid(command.CoffeId));
+
+        // Query coffee exist
+        if (coffee is null)
+        {
+            AddNotification(command.CustomerId, "Café não cadastrado");
+            return new CommandResult(false, Notifications);
+        }
+
+        // Query coffee available
+        if (!coffee.Active)
+        {
+            AddNotification(command.CoffeId, "Café não disponível");
             return new CommandResult(false, Notifications);
         }
 

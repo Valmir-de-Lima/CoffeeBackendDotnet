@@ -11,10 +11,14 @@ public class CreatePersonalizedCoffeeHandler : Handler, IHandler<CreatePersonali
 {
 
     private readonly IPersonalizedCoffeeRepository _repository;
+    private readonly IUserRepository _userRepository;
+    private readonly ICoffeRepository _coffeRepository;
 
-    public CreatePersonalizedCoffeeHandler(IPersonalizedCoffeeRepository repository)
+    public CreatePersonalizedCoffeeHandler(IPersonalizedCoffeeRepository repository, IUserRepository userRepository, ICoffeRepository coffeRepository)
     {
         _repository = repository;
+        _userRepository = userRepository;
+        _coffeRepository = coffeRepository;
     }
 
     public async Task<ICommandResult> HandleAsync(CreatePersonalizedCoffeeCommand command)
@@ -24,6 +28,31 @@ public class CreatePersonalizedCoffeeHandler : Handler, IHandler<CreatePersonali
         if (!command.IsValid)
         {
             AddNotifications(command);
+            return new CommandResult(false, Notifications);
+        }
+
+        var user = await _userRepository.GetByIdAsync(new Guid(command.CustomerId));
+
+        // Query customer exist
+        if (user is null)
+        {
+            AddNotification(command.CustomerId, "Cliente não cadastrado");
+            return new CommandResult(false, Notifications);
+        }
+
+        var coffee = await _coffeRepository.GetByIdAsync(new Guid(command.CoffeId));
+
+        // Query coffee exist
+        if (coffee is null)
+        {
+            AddNotification(command.CustomerId, "Café não cadastrado");
+            return new CommandResult(false, Notifications);
+        }
+
+        // Query coffee available
+        if (!coffee.Active)
+        {
+            AddNotification(command.CoffeId, "Café não disponível");
             return new CommandResult(false, Notifications);
         }
 
