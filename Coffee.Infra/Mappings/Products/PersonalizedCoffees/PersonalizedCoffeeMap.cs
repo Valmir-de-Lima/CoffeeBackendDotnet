@@ -44,7 +44,25 @@ public class PersonalizedCoffeeMap : IEntityTypeConfiguration<PersonalizedCoffee
             .HasColumnName("TotalPrice")
             .HasColumnType("decimal(18, 2)");
 
-
+        // Relacionamento muitos para muitos
+        builder
+            .HasMany(x => x.Ingredients)       // Tem muitos
+                .WithMany(x => x.PersonalizedCoffees) // Com muitos. Esta instrucao se refere a Tag, o tipo de x é de Tag.
+                                                      // Criando uma entidade virtual para ser uma tabela associativa
+            .UsingEntity<Dictionary<string, object>>(
+                "PersonalizedCoffeeIngredient",
+                personalizedCoffee => personalizedCoffee
+                    .HasOne<Ingredient>()
+                    .WithMany()
+                    .HasForeignKey("PersonalizedCoffeeId")
+                    .HasConstraintName("FK_PersonalizedCoffeeIngredient_PersonalizedCoffeeId")
+                    .OnDelete(DeleteBehavior.NoAction),
+                ingredient => ingredient
+                    .HasOne<PersonalizedCoffee>()
+                    .WithMany()
+                    .HasForeignKey("IngredientId")
+                    .HasConstraintName("FK_PersonalizedCoffeeIngredient_IngredientId")
+                    .OnDelete(DeleteBehavior.NoAction));
 
         // Índices
         builder

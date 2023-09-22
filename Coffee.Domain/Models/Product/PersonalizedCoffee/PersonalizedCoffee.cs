@@ -36,15 +36,13 @@ public class PersonalizedCoffee : Model
     public void AddIngredient(Ingredient ingredient)
     {
         Ingredients.Add(ingredient);
-        TotalPrice = TotalPrice + ingredient.Price;
-        QuantityIngredient += 1;
+        UpdateQuantityAndTotalPrice(Ingredients);
     }
 
     public void RemoveIngredient(Ingredient ingredient)
     {
         Ingredients.Remove(ingredient);
-        TotalPrice = TotalPrice - ingredient.Price;
-        QuantityIngredient -= 1;
+        UpdateQuantityAndTotalPrice(Ingredients);
     }
 
     public void Update(Guid coffeId, string description, decimal priceCoffee)

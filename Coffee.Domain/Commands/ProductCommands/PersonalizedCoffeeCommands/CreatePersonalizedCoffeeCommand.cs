@@ -8,15 +8,12 @@ public class CreatePersonalizedCoffeeCommand : Command, ICommand
 {
     public string CustomerId { get; set; } = "";
     public string CoffeId { get; set; } = "";
-    public string DescriptionCoffe { get; set; } = "";
-    public string PriceCoffe { get; set; } = "";
 
     public void Validate()
     {
-        decimal priceCoffe;
-        decimal.TryParse(PriceCoffe, out priceCoffe);
-        AddNotifications(new CreatePersonalizedCoffeeContract(
-            new PersonalizedCoffee(new Guid(CustomerId), new Guid(CoffeId), DescriptionCoffe, priceCoffe)
-        ));
+        AddNotifications(
+            new VerifyIdPersonalizedCoffeeContract(CustomerId),
+            new VerifyIdPersonalizedCoffeeContract(CoffeId)
+        );
     }
 }

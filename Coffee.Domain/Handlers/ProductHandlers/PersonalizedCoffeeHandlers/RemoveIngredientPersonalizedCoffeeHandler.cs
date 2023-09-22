@@ -28,7 +28,7 @@ public class RemoveIngredientPersonalizedCoffeeHandler : Handler, IHandler<Remov
             return new CommandResult(false, Notifications);
         }
 
-        var personalizedCoffee = await _repository.GetByIdAsync(new Guid(command.PersonalizedCoffeeId));
+        var personalizedCoffee = await _repository.GetByIdWithIngredientAsync(new Guid(command.PersonalizedCoffeeId));
 
         // Query personalized coffee exist
         if (personalizedCoffee is null)
@@ -47,7 +47,7 @@ public class RemoveIngredientPersonalizedCoffeeHandler : Handler, IHandler<Remov
         }
 
         // update model
-        personalizedCoffee.AddIngredient(ingredient);
+        personalizedCoffee.RemoveIngredient(ingredient);
         // Save database
         _repository.Update(personalizedCoffee);
 

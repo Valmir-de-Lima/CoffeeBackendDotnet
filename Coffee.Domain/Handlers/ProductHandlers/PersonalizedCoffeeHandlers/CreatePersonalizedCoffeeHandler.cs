@@ -56,15 +56,12 @@ public class CreatePersonalizedCoffeeHandler : Handler, IHandler<CreatePersonali
             return new CommandResult(false, Notifications);
         }
 
-        decimal priceCoffe;
-        decimal.TryParse(command.PriceCoffe, out priceCoffe);
-
         // Build entity
         var personalizedCoffee = new PersonalizedCoffee(
             new Guid(command.CustomerId),
             new Guid(command.CoffeId),
-            command.DescriptionCoffe,
-            priceCoffe);
+            coffee.Description,
+            coffee.Price);
 
         // Save database
         await _repository.CreateAsync(personalizedCoffee);

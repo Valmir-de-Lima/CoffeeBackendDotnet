@@ -27,7 +27,7 @@ public class UpdatePersonalizedCoffeeHandler : Handler, IHandler<UpdatePersonali
             return new CommandResult(false, Notifications);
         }
 
-        var personalizedCoffee = await _repository.GetByIdAsync(new Guid(command.PersonalizedCoffeeId));
+        var personalizedCoffee = await _repository.GetByIdWithIngredientAsync(new Guid(command.PersonalizedCoffeeId));
 
         // Query personalized coffee exist
         if (personalizedCoffee is null)
@@ -36,30 +36,27 @@ public class UpdatePersonalizedCoffeeHandler : Handler, IHandler<UpdatePersonali
             return new CommandResult(false, Notifications);
         }
 
-        var coffee = await _coffeRepository.GetByIdAsync(new Guid(command.CoffeId));
+        var coffee = await _coffeRepository.GetByIdAsync(new Guid(command.CoffeeId));
 
         // Query coffee exist
         if (coffee is null)
         {
-            AddNotification(command.CustomerId, "Café não cadastrado");
+            AddNotification(command.CoffeeId, "Café não cadastrado");
             return new CommandResult(false, Notifications);
         }
 
         // Query coffee available
         if (!coffee.Active)
         {
-            AddNotification(command.CoffeId, "Café não disponível");
+            AddNotification(command.CoffeeId, "Café não disponível");
             return new CommandResult(false, Notifications);
         }
 
-        decimal priceCoffe;
-        decimal.TryParse(command.PriceCoffe, out priceCoffe);
-
         // update model
         personalizedCoffee.Update(
-            new Guid(command.CoffeId),
-            command.DescriptionCoffe,
-            priceCoffe);
+            new Guid(command.CoffeeId),
+            coffee.Description,
+            coffee.Price);
 
         // Save database        
         _repository.Update(personalizedCoffee);

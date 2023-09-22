@@ -29,7 +29,7 @@ public class AddIngredientPersonalizedCoffeeHandler : Handler, IHandler<AddIngre
             return new CommandResult(false, Notifications);
         }
 
-        var personalizedCoffee = await _repository.GetByIdAsync(new Guid(command.PersonalizedCoffeeId));
+        var personalizedCoffee = await _repository.GetByIdWithIngredientAsync(new Guid(command.PersonalizedCoffeeId));
 
         // Query personalized coffee exist
         if (personalizedCoffee is null)

@@ -7,20 +7,13 @@ namespace Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands;
 public class UpdatePersonalizedCoffeeCommand : Command, ICommand
 {
     public string PersonalizedCoffeeId { get; set; } = "";
-    public string CustomerId { get; set; } = "";
-    public string CoffeId { get; set; } = "";
-    public string DescriptionCoffe { get; set; } = "";
-    public string PriceCoffe { get; set; } = "";
+    public string CoffeeId { get; set; } = "";
 
     public void Validate()
     {
-        decimal priceCoffe;
-        decimal.TryParse(PriceCoffe, out priceCoffe);
         AddNotifications(
-            new CreatePersonalizedCoffeeContract(
-                new PersonalizedCoffee(new Guid(CustomerId), new Guid(CoffeId), DescriptionCoffe, priceCoffe)
-            ),
-            new VerifyIdPersonalizedCoffeeContract(PersonalizedCoffeeId)
+            new VerifyIdPersonalizedCoffeeContract(PersonalizedCoffeeId),
+            new VerifyIdPersonalizedCoffeeContract(CoffeeId)
         );
     }
 }

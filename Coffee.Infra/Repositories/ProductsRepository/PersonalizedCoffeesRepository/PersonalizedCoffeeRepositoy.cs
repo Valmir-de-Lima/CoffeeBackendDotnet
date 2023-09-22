@@ -41,6 +41,14 @@ public class PersonalizedCoffeeRepository : Repository<PersonalizedCoffee>, IPer
         };
     }
 
+    public async Task<dynamic> GetByIdWithIngredientAsync(Guid id)
+    {
+        var personalizedCoffee = await _context.PersonalizedCoffees
+                        .Include(x => x.Ingredients)
+                        .FirstOrDefaultAsync(x => x.Id == id);
+        return personalizedCoffee ?? null!;
+    }
+
     public async Task<PersonalizedCoffee?> GetByDescriptionCoffeAsync(string descriptionCoffe)
     {
         return await _context.PersonalizedCoffees.FirstOrDefaultAsync(

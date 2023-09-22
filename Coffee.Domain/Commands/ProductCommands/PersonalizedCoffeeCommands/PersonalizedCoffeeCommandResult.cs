@@ -16,11 +16,6 @@ public class PersonalizedCoffeeCommandResult
         QuantityIngredient = personalizedCoffee.QuantityIngredient.ToString();
         TotalPrice = personalizedCoffee.TotalPrice.ToString();
         Ingredients = personalizedCoffee.Ingredients.Select(x => new IngredientCommandResult(x)).ToList();
-        Quantity = personalizedCoffee.Ingredients.Count().ToString();
-        //Ingredients = JsonConvert.SerializeObject(personalizedCoffee.Ingredients.ToList());
-        // var ingredients = personalizedCoffee.Ingredients.ToArray().ToString();
-        // if (ingredients is not null)
-        //     Ingredients = ingredients;
     }
 
 
@@ -32,6 +27,4 @@ public class PersonalizedCoffeeCommandResult
     public string QuantityIngredient { get; set; } = "";
     public string TotalPrice { get; set; } = "";
     public IList<IngredientCommandResult> Ingredients { get; private set; } = new List<IngredientCommandResult>();
-    public string Quantity { get; set; } = "";
-
 }

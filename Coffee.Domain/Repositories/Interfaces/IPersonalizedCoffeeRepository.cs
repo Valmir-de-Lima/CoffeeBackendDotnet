@@ -5,4 +5,5 @@ public interface IPersonalizedCoffeeRepository : IRepository<PersonalizedCoffee>
 {
     Task<PersonalizedCoffee?> GetByDescriptionCoffeAsync(string descriptionCoffe);
     Task<dynamic> GetAllAsync(int skip = 0, int take = 25);
+    Task<dynamic> GetByIdWithIngredientAsync(Guid id);
 }
