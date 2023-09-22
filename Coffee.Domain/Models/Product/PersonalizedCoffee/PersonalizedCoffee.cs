@@ -1,5 +1,5 @@
 using Coffee.Domain.Models.Product.PersonalizedCoffee.Contracts;
-using Coffee.Domain.Models.Product.PersonalizedCoffee.IngredientsSelected;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients;
 
 namespace Coffee.Domain.Models.Product.PersonalizedCoffee;
 
@@ -31,16 +31,16 @@ public class PersonalizedCoffee : Model
     public int QuantityIngredient { get; private set; }
     public decimal TotalPrice { get; private set; }
 
-    public IList<IngredientSelected> Ingredients { get; set; } = new List<IngredientSelected>();
+    public IList<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 
-    public void AddIngredient(IngredientSelected ingredient)
+    public void AddIngredient(Ingredient ingredient)
     {
         Ingredients.Add(ingredient);
         TotalPrice = TotalPrice + ingredient.Price;
         QuantityIngredient += 1;
     }
 
-    public void RemoveIngredient(IngredientSelected ingredient)
+    public void RemoveIngredient(Ingredient ingredient)
     {
         Ingredients.Remove(ingredient);
         TotalPrice = TotalPrice - ingredient.Price;
@@ -55,7 +55,7 @@ public class PersonalizedCoffee : Model
         UpdateQuantityAndTotalPrice(Ingredients);
     }
 
-    private void UpdateQuantityAndTotalPrice(IList<IngredientSelected> ingredients)
+    private void UpdateQuantityAndTotalPrice(IList<Ingredient> ingredients)
     {
         QuantityIngredient = ingredients.Count;
 

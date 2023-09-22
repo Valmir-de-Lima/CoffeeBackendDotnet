@@ -1,6 +1,6 @@
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient.Contracts;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients.Contracts;
 
-namespace Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
+namespace Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients;
 
 public class Ingredient : Model
 {

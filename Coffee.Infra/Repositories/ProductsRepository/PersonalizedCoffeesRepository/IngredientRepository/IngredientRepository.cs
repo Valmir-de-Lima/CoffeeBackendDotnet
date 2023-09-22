@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.IngredientCommands;
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients;
 using Coffee.Domain.Queries;
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Infra.Data;

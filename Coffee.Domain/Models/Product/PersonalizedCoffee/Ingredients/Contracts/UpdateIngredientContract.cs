@@ -1,6 +1,6 @@
 using Flunt.Validations;
 
-namespace Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient.Contracts;
+namespace Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients.Contracts;
 
 public class UpdateIngredientContract : Contract<Ingredient>
 {

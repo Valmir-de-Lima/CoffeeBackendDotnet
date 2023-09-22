@@ -1,5 +1,5 @@
 using Coffee.Domain.Models.Product.Contracts;
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients;
 
 namespace Coffee.Domain.Models.Product;
 

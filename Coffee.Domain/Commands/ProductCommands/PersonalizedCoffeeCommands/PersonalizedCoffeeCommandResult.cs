@@ -1,4 +1,4 @@
-using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands;
+using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.IngredientCommands;
 using Coffee.Domain.Models.Product.PersonalizedCoffee;
 
 
@@ -15,7 +15,7 @@ public class PersonalizedCoffeeCommandResult
         PriceCoffe = personalizedCoffee.PriceCoffe.ToString();
         QuantityIngredient = personalizedCoffee.QuantityIngredient.ToString();
         TotalPrice = personalizedCoffee.TotalPrice.ToString();
-        Ingredients = personalizedCoffee.Ingredients.Select(x => new IngredientSelectedCommandResult(x)).ToList();
+        Ingredients = personalizedCoffee.Ingredients.Select(x => new IngredientCommandResult(x)).ToList();
         Quantity = personalizedCoffee.Ingredients.Count().ToString();
         //Ingredients = JsonConvert.SerializeObject(personalizedCoffee.Ingredients.ToList());
         // var ingredients = personalizedCoffee.Ingredients.ToArray().ToString();
@@ -31,7 +31,7 @@ public class PersonalizedCoffeeCommandResult
     public string PriceCoffe { get; set; } = "";
     public string QuantityIngredient { get; set; } = "";
     public string TotalPrice { get; set; } = "";
-    public IList<IngredientSelectedCommandResult> Ingredients { get; private set; } = new List<IngredientSelectedCommandResult>();
+    public IList<IngredientCommandResult> Ingredients { get; private set; } = new List<IngredientCommandResult>();
     public string Quantity { get; set; } = "";
 
 }

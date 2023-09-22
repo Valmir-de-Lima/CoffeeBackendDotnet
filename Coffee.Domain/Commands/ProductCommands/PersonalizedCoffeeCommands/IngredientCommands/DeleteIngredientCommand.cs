@@ -1,5 +1,5 @@
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient.Contracts;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients.Contracts;
 using Coffee.Domain.Commands.Interfaces;
 using Coffee.Domain.ValueObjects;
 

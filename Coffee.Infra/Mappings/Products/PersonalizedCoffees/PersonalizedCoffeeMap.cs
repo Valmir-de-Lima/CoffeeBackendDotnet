@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Coffee.Domain.Models.Product.PersonalizedCoffee;
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients;
 
 
 namespace Coffee.Infra.Mappings.Products.PersonalizedCoffees;
@@ -43,6 +43,8 @@ public class PersonalizedCoffeeMap : IEntityTypeConfiguration<PersonalizedCoffee
             .IsRequired()
             .HasColumnName("TotalPrice")
             .HasColumnType("decimal(18, 2)");
+
+
 
         // Índices
         builder

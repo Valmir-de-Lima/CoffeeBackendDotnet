@@ -1,4 +1,4 @@
-using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredient;
+using Coffee.Domain.Models.Product.PersonalizedCoffee.Ingredients;
 using System.Linq.Expressions;
 
 namespace Coffee.Domain.Queries;
