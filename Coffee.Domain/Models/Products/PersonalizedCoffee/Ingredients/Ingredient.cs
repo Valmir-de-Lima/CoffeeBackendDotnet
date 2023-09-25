@@ -23,7 +23,7 @@ public class Ingredient : Model
     public string Description { get; private set; } = "";
     public decimal Price { get; private set; }
     public bool Active { get; private set; }
-
+    public Product Product { get; private set; } = new Product();
     public IList<PersonalizedCoffee> PersonalizedCoffees { get; set; } = new List<PersonalizedCoffee>();
 
     public void Update(string description, decimal price, bool active)

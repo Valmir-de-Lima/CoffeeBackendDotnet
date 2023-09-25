@@ -1,6 +1,6 @@
 using Flunt.Validations;
 
-namespace Coffee.Domain.Models.Basket.Contracts;
+namespace Coffee.Domain.Models.Baskets.Contracts;
 
 public class CreateBasketContract : Contract<Basket>
 {

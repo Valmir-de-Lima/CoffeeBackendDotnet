@@ -4,8 +4,6 @@ using Coffee.Domain.Models.Product.PersonalizedCoffee;
 using Coffee.Domain.Queries;
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Infra.Data;
-using Coffee.Domain.Commands.ProductCommands.PersonalizedCoffeeCommands.IngredientCommands;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffeesRepository;
 
