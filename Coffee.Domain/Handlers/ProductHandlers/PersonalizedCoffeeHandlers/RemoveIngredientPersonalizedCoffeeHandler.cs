@@ -46,6 +46,12 @@ public class RemoveIngredientPersonalizedCoffeeHandler : Handler, IHandler<Remov
             return new CommandResult(false, Notifications);
         }
 
+        if (!personalizedCoffee.SelectedIngredient(ingredient))
+        {
+            AddNotification(command.IngredientId, "Ingrediente não selecionado");
+            return new CommandResult(false, Notifications);
+        }
+
         // update model
         personalizedCoffee.RemoveIngredient(ingredient);
         // Save database

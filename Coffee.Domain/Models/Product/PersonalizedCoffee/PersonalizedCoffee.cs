@@ -39,6 +39,11 @@ public class PersonalizedCoffee : Model
         UpdateQuantityAndTotalPrice(Ingredients);
     }
 
+    public bool SelectedIngredient(Ingredient ingredient)
+    {
+        return Ingredients.Contains(ingredient);
+    }
+
     public void RemoveIngredient(Ingredient ingredient)
     {
         Ingredients.Remove(ingredient);

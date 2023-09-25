@@ -54,6 +54,13 @@ public class AddIngredientPersonalizedCoffeeHandler : Handler, IHandler<AddIngre
             return new CommandResult(false, Notifications);
         }
 
+        // Query ingredient selected
+        if (personalizedCoffee.SelectedIngredient(ingredient))
+        {
+            AddNotification(command.IngredientId, "Ingrediente já selecionado");
+            return new CommandResult(false, Notifications);
+        }
+
         // update model
         personalizedCoffee.AddIngredient(ingredient);
 
