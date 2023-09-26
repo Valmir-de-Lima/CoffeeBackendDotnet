@@ -5,7 +5,6 @@ using Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers;
 using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Domain.Commands;
 
-
 namespace Coffee.Api.Controllers.ProductsController.PersonalizedCoffeesController;
 
 [ApiController]

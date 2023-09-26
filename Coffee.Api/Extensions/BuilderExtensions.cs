@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using Coffee.Api.Services;
 
 using Coffee.Domain.Handlers.UserHandlers;
+using Coffee.Domain.Handlers.BasketHandlers;
+using Coffee.Domain.Handlers.ProductHandlers;
 using Coffee.Domain.Handlers.ProductHandlers.PastryHandlers;
 using Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.IngredientHandlers;
 using Coffee.Domain.Handlers.ProductHandlers.PersonalizedCoffeeHandlers.CoffeHandlers;
@@ -14,6 +16,8 @@ using Coffee.Domain.Repositories.Interfaces;
 using Coffee.Domain.Services;
 using Coffee.Infra.Data;
 using Coffee.Infra.Repositories.UsersRepository;
+using Coffee.Infra.Repositories.BasketsRepository;
+using Coffee.Infra.Repositories.ProductsRepository;
 using Coffee.Infra.Repositories.ProductsRepository.PastryRepository;
 using Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffeesRepository;
 using Coffee.Infra.Repositories.ProductsRepository.PersonalizedCoffeesRepository.IngredientRepository;
@@ -63,12 +67,16 @@ public static class BuilderExtensions
         builder.Services.AddTransient<IPastryRepository, PastryRepository>();
         builder.Services.AddTransient<ICoffeRepository, CoffeRepository>();
         builder.Services.AddTransient<IPersonalizedCoffeeRepository, PersonalizedCoffeeRepository>();
+        builder.Services.AddTransient<IProductRepository, ProductRepository>();
+        builder.Services.AddTransient<IBasketRepository, BasketRepository>();
 
         builder.Services.AddTransient<UserHandler, UserHandler>();
         builder.Services.AddTransient<PastryHandler, PastryHandler>();
         builder.Services.AddTransient<IngredientHandler, IngredientHandler>();
         builder.Services.AddTransient<CoffeHandler, CoffeHandler>();
         builder.Services.AddTransient<PersonalizedCoffeeHandler, PersonalizedCoffeeHandler>();
+        builder.Services.AddTransient<ProductHandler, ProductHandler>();
+        builder.Services.AddTransient<BasketHandler, BasketHandler>();
 
         builder.Services.AddTransient<ITokenService, TokenService>();
         builder.Services.AddTransient<IEmailService, EmailService>();
