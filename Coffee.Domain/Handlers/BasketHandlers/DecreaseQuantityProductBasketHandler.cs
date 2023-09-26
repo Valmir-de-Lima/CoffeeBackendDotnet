@@ -54,9 +54,18 @@ public class DecreaseQuantityProductBasketHandler : Handler, IHandler<DecreaseQu
             return new CommandResult(false, Notifications);
         }
 
-        // update model
-        basket.DecreaseQuantityProduc(product);
+        if (product.Quantity == 1)
+        {
+            _productRepository.Delete(product);
+        }
+        else
+        {
+            product.Update(-1);
+            _productRepository.Update(product);
+        }
 
+        // update model
+        basket.DecreaseQuantityProduc();
         // Save database
         _repository.Update(basket);
 

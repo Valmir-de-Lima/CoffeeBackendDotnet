@@ -7,11 +7,13 @@ public class AddProductBasketCommand : Command, ICommand
 {
     public string BasketId { get; set; } = "";
     public string ProductId { get; set; } = "";
+    public string IsCoffee { get; set; } = "";
     public void Validate()
     {
         AddNotifications(
             new VerifyIdPersonalizedCoffeeContract(BasketId),
-            new VerifyIdPersonalizedCoffeeContract(ProductId)
+            new VerifyIdPersonalizedCoffeeContract(ProductId),
+            new VerifyBooleanContract(IsCoffee)
         );
     }
 }

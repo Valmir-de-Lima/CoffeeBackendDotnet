@@ -54,9 +54,11 @@ public class IncreaseQuantityProductBasketHandler : Handler, IHandler<IncreaseQu
             return new CommandResult(false, Notifications);
         }
 
+        product.Update(1);
+        _productRepository.Update(product);
+
         // update model
         basket.IncreaseQuantityProduc(product);
-
         // Save database
         _repository.Update(basket);
 

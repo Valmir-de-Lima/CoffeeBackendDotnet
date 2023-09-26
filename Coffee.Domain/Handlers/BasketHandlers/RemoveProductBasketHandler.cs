@@ -54,8 +54,11 @@ public class RemoveProductBasketHandler : Handler, IHandler<RemoveProductBasketC
             return new CommandResult(false, Notifications);
         }
 
-        // update model
-        basket.RemoveProduct(product);
+        // Remove
+        _productRepository.Delete(product);
+
+        // update basket
+        basket.RemoveProduct();
 
         // Save database
         _repository.Update(basket);

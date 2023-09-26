@@ -17,16 +17,23 @@ public class BasketHandler : Handler,
     private readonly IBasketRepository _repository;
     private readonly IProductRepository _productRepository;
     private readonly IUserRepository _userRepository;
+    private readonly IPersonalizedCoffeeRepository _personalizedCoffeeRepository;
+    private readonly IPastryRepository _pastryRepository;
+
 
     public BasketHandler(
         IBasketRepository repository,
         IProductRepository productRepository,
-        IUserRepository userRepository
+        IUserRepository userRepository,
+        IPersonalizedCoffeeRepository personalizedCoffeeRepository,
+        IPastryRepository pastryRepository
         )
     {
         _repository = repository;
         _productRepository = productRepository;
         _userRepository = userRepository;
+        _personalizedCoffeeRepository = personalizedCoffeeRepository;
+        _pastryRepository = pastryRepository;
     }
 
     public async Task<ICommandResult> HandleAsync(CreateBasketCommand command)
@@ -46,7 +53,11 @@ public class BasketHandler : Handler,
 
     public async Task<ICommandResult> HandleAsync(AddProductBasketCommand command)
     {
-        return await new AddProductBasketHandler(_repository, _productRepository).HandleAsync(command);
+        return await new AddProductBasketHandler(
+            _repository,
+            _productRepository,
+            _personalizedCoffeeRepository,
+            _pastryRepository).HandleAsync(command);
     }
 
     public async Task<ICommandResult> HandleAsync(RemoveProductBasketCommand command)

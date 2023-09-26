@@ -40,7 +40,7 @@ public class CreateProductHandler : Handler, IHandler<CreateProductCommand>
             return new CommandResult(false, Notifications);
         }
 
-        var basket = await _basketRepository.GetByIdAsync(new Guid(command.BasketId));
+        var basket = await _basketRepository.GetByIdWithProductsAsync(new Guid(command.BasketId));
 
         // Query basket exist
         if (basket is null)
@@ -58,7 +58,7 @@ public class CreateProductHandler : Handler, IHandler<CreateProductCommand>
 
         if (isCoffee)
         {
-            var coffee = await _personalizedCoffeeRepository.GetByIdAsync(new Guid(command.ProductId));
+            var coffee = await _personalizedCoffeeRepository.GetByIdWithIngredientAsync(new Guid(command.ProductId));
             // Query coffee exist
             if (coffee is null)
             {

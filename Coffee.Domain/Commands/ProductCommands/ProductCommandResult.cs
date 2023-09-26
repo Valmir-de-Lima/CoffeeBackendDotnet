@@ -8,7 +8,7 @@ public class ProductCommandResult
 {
     public ProductCommandResult(Product product)
     {
-        ProductId = product.Id.ToString();
+        ProductId = product.ProductId.ToString();
         CustomerId = product.CustomerId.ToString();
         Description = product.Description;
         UnitPrice = product.UnitPrice.ToString();

@@ -21,51 +21,24 @@ public class Basket : Model
     public decimal Price { get; private set; }
     public IList<Product.Product> Products { get; set; } = new List<Product.Product>();
 
-    public void AddProduct(Product.Product product)
+    public void AddProduct()
     {
-        if (!SelectedProduct(product))
-        {
-            Products.Add(product);
-            UpdateQuantityAndTotalPrice(Products);
-        }
+        UpdateQuantityAndTotalPrice(Products);
     }
 
-    public void RemoveProduct(Product.Product product)
+    public void RemoveProduct()
     {
-        if (SelectedProduct(product))
-        {
-            Products.Remove(product);
-            UpdateQuantityAndTotalPrice(Products);
-        }
+        UpdateQuantityAndTotalPrice(Products);
     }
 
-    public void IncreaseQuantityProduct(Product.Product product)
+    public void IncreaseQuantityProduct()
     {
-        int index = Products.IndexOf(product);
-        if (index != -1)
-        {
-            Product.Product selectedProduct = Products[index];
-            selectedProduct.Update(1);
-            UpdateQuantityAndTotalPrice(Products);
-        }
+        UpdateQuantityAndTotalPrice(Products);
     }
 
-    public void DecreaseQuantityProduct(Product.Product product)
+    public void DecreaseQuantityProduct()
     {
-        int index = Products.IndexOf(product);
-        if (index != -1)
-        {
-            Product.Product selectedProduct = Products[index];
-            if (selectedProduct.Quantity >= 2)
-            {
-                selectedProduct.Update(-1);
-            }
-            else
-            {
-                Products.Remove(product);
-            }
-            UpdateQuantityAndTotalPrice(Products);
-        }
+        UpdateQuantityAndTotalPrice(Products);
     }
 
     public bool SelectedProduct(Product.Product product)

@@ -43,6 +43,7 @@ public class BasketRepository : Repository<Basket>, IBasketRepository
     {
         var basket = await _context.Baskets
                         .Include(x => x.Products)
+                        .ThenInclude(p => p.Ingredients)
                         .FirstOrDefaultAsync(x => x.Id == id);
         return basket ?? null!;
     }
@@ -51,6 +52,7 @@ public class BasketRepository : Repository<Basket>, IBasketRepository
     {
         var basket = await _context.Baskets
                         .Include(x => x.Products)
+                        .ThenInclude(p => p.Ingredients)
                         .FirstOrDefaultAsync(x => x.CustomerId == id);
         return basket ?? null!;
     }
