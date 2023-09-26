@@ -29,13 +29,13 @@ public class Product : Model
 
     public Guid BasketId { get; }
     public Basket Basket { get; set; } = new Basket();
-    public Guid CustomerId { get; }
-    public Guid ProductId { get; }
-    public string Description { get; private set; } = "";
-    public decimal UnitPrice { get; private set; }
-    public int Quantity { get; private set; }
-    public decimal TotalPrice { get; private set; }
-    public bool IsCoffee { get; private set; }
+    public Guid CustomerId { get; set; }
+    public Guid ProductId { get; set; }
+    public string Description { get; set; } = "";
+    public decimal UnitPrice { get; set; }
+    public int Quantity { get; set; }
+    public decimal TotalPrice { get; set; }
+    public bool IsCoffee { get; set; }
     public IList<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 
     public void AddIngredients(IList<Ingredient> ingredients)

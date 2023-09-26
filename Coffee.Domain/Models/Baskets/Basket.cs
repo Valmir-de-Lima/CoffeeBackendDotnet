@@ -8,12 +8,9 @@ public class Basket : Model
     {
 
     }
-    public Basket(Guid customerId, int quantity, decimal price)
+    public Basket(Guid customerId)
     {
         CustomerId = customerId;
-        Quantity = quantity;
-        Price = price;
-
         // Design by contracts
         AddNotifications(
             new CreateBasketContract(this)

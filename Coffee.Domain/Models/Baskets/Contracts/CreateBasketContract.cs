@@ -7,7 +7,7 @@ public class CreateBasketContract : Contract<Basket>
     public CreateBasketContract(Basket basket)
     {
         Requires()
-                .IsGreaterThan(basket.Quantity, -1, basket.Quantity.ToString(), "A quantidade não pode ser um valor negativo")
-                .IsGreaterThan(basket.Price, -1, basket.Price.ToString(), "O valor não pode negativo");
+                .IsNotNullOrEmpty(basket.CustomerId.ToString(), basket.CustomerId.ToString(), "Identificação requerida")
+                .Matches(basket.CustomerId.ToString(), "^(?:\\{{0,1}(?:[0-9a-fA-F]){8}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){4}-(?:[0-9a-fA-F]){12}\\}{0,1})$", "id", "Valor inválido");
     }
 }
