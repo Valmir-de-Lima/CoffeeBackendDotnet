@@ -17,43 +17,18 @@ public class Basket : Model
         );
     }
     public Guid CustomerId { get; }
-    public int Quantity { get; private set; }
-    public decimal Price { get; private set; }
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
     public IList<Product.Product> Products { get; set; } = new List<Product.Product>();
-
-    public void AddProduct()
-    {
-        UpdateQuantityAndTotalPrice(Products);
-    }
-
-    public void RemoveProduct()
-    {
-        UpdateQuantityAndTotalPrice(Products);
-    }
-
-    public void IncreaseQuantityProduct()
-    {
-        UpdateQuantityAndTotalPrice(Products);
-    }
-
-    public void DecreaseQuantityProduct()
-    {
-        UpdateQuantityAndTotalPrice(Products);
-    }
 
     public bool SelectedProduct(Product.Product product)
     {
         return Products.Contains(product);
     }
 
-    private void UpdateQuantityAndTotalPrice(IList<Product.Product> products)
+    public Product.Product? SelectedProduct(Guid id)
     {
-        Quantity = 0;
-        Price = 0;
-        foreach (var product in products)
-        {
-            Price = Price + product.TotalPrice;
-            Quantity = Quantity + product.Quantity;
-        }
+        return Products.FirstOrDefault(x => x.ProductId == id);
     }
+
 }

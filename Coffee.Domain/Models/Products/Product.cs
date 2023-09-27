@@ -27,7 +27,7 @@ public class Product : Model
         );
     }
 
-    public Guid BasketId { get; }
+    public Guid BasketId { get; set; }
     public Basket Basket { get; set; } = new Basket();
     public Guid CustomerId { get; set; }
     public Guid ProductId { get; set; }

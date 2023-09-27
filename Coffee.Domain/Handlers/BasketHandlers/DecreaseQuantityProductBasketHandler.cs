@@ -38,17 +38,10 @@ public class DecreaseQuantityProductBasketHandler : Handler, IHandler<DecreaseQu
             return new CommandResult(false, Notifications);
         }
 
-        var product = await _productRepository.GetByIdAsync(new Guid(command.ProductId));
+        var product = basket.SelectedProduct(new Guid(command.ProductId));
 
         // Query ingredient exist
         if (product is null)
-        {
-            AddNotification(command.ProductId, "Produto não selecionado");
-            return new CommandResult(false, Notifications);
-        }
-
-        // Query ingredient selected
-        if (!basket.SelectedProduct(product))
         {
             AddNotification(command.ProductId, "Produto não selecionado");
             return new CommandResult(false, Notifications);
@@ -64,8 +57,13 @@ public class DecreaseQuantityProductBasketHandler : Handler, IHandler<DecreaseQu
             _productRepository.Update(product);
         }
 
-        // update model
-        basket.DecreaseQuantityProduc();
+        basket.Quantity = 0;
+        basket.Price = 0;
+        foreach (var prod in basket.Products)
+        {
+            basket.Price = basket.Price + prod.TotalPrice;
+            basket.Quantity = basket.Quantity + prod.Quantity;
+        }
         // Save database
         _repository.Update(basket);
 

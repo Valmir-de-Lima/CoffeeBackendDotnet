@@ -3,6 +3,8 @@ using Coffee.Domain.Commands.Interfaces;
 using Coffee.Domain.Commands.BasketCommands;
 using Coffee.Domain.Handlers.Interfaces;
 using Coffee.Domain.Repositories.Interfaces;
+using Coffee.Domain.Models.Baskets;
+using Coffee.Domain.Models.Product;
 
 
 namespace Coffee.Domain.Handlers.BasketHandlers;
@@ -38,7 +40,7 @@ public class IncreaseQuantityProductBasketHandler : Handler, IHandler<IncreaseQu
             return new CommandResult(false, Notifications);
         }
 
-        var product = await _productRepository.GetByIdAsync(new Guid(command.ProductId));
+        var product = basket.SelectedProduct(new Guid(command.ProductId));
 
         // Query ingredient exist
         if (product is null)
@@ -47,18 +49,16 @@ public class IncreaseQuantityProductBasketHandler : Handler, IHandler<IncreaseQu
             return new CommandResult(false, Notifications);
         }
 
-        // Query ingredient selected
-        if (!basket.SelectedProduct(product))
-        {
-            AddNotification(command.ProductId, "Produto não selecionado");
-            return new CommandResult(false, Notifications);
-        }
-
         product.Update(1);
         _productRepository.Update(product);
 
-        // update model
-        basket.IncreaseQuantityProduc(product);
+        basket.Quantity = 0;
+        basket.Price = 0;
+        foreach (var prod in basket.Products)
+        {
+            basket.Price = basket.Price + prod.TotalPrice;
+            basket.Quantity = basket.Quantity + prod.Quantity;
+        }
         // Save database
         _repository.Update(basket);
 

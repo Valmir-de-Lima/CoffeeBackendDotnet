@@ -48,10 +48,19 @@ public class AddProductBasketHandler : Handler, IHandler<AddProductBasketCommand
             return new CommandResult(false, Notifications);
         }
 
+        // Query product selected
+        var product = basket.SelectedProduct(new Guid(command.ProductId));
+
+        if (product is not null)
+        {
+            AddNotification(command.BasketId, "Produto já selecionado");
+            return new CommandResult(false, Notifications);
+        }
+
         bool isCoffee;
         bool.TryParse(command.IsCoffee, out isCoffee);
 
-        var product = new Product();
+        product = new Product();
         product.Basket = basket;
         product.CustomerId = basket.CustomerId;
 
@@ -61,11 +70,11 @@ public class AddProductBasketHandler : Handler, IHandler<AddProductBasketCommand
             // Query coffee exist
             if (coffee is null)
             {
-                AddNotification(command.ProductId, "Café personalizado não selecionado");
+                AddNotification(command.ProductId, "Café personalizado não cadastrado");
                 return new CommandResult(false, Notifications);
             }
 
-            product.ProductId = coffee.CoffeId;
+            product.ProductId = coffee.Id;
             product.Description = coffee.DescriptionCoffe;
             product.UnitPrice = coffee.TotalPrice;
             product.Quantity = 1;
@@ -79,7 +88,7 @@ public class AddProductBasketHandler : Handler, IHandler<AddProductBasketCommand
             // Query coffee exist
             if (pastry is null)
             {
-                AddNotification(command.ProductId, "Acompanhamento não selecionado");
+                AddNotification(command.ProductId, "Acompanhamento não cadastrado");
                 return new CommandResult(false, Notifications);
             }
 
@@ -101,8 +110,13 @@ public class AddProductBasketHandler : Handler, IHandler<AddProductBasketCommand
         // Save database
         await _productRepository.CreateAsync(product);
 
-        // update model
-        basket.AddProduct();
+        basket.Quantity = 0;
+        basket.Price = 0;
+        foreach (var prod in basket.Products)
+        {
+            basket.Price = basket.Price + prod.TotalPrice;
+            basket.Quantity = basket.Quantity + prod.Quantity;
+        }
         _repository.Update(basket);
 
         return new CommandResult(true, new BasketCommandResult(basket));
