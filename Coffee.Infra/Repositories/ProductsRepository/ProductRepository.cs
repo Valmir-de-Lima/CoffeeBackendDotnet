@@ -50,7 +50,7 @@ public class ProductRepository : Repository<Product>, IProductRepository
     public async Task<Product?> GetByDescriptionAsync(string description)
     {
         return await _context.Products.FirstOrDefaultAsync(
-            ProductQueries.GetByDescriptionCoffe(description)
+            ProductQueries.GetByDescription(description)
         );
     }
 }

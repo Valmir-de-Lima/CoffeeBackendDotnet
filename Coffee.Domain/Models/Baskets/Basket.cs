@@ -30,5 +30,4 @@ public class Basket : Model
     {
         return Products.FirstOrDefault(x => x.ProductId == id);
     }
-
 }

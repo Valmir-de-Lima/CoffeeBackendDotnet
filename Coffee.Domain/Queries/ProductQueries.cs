@@ -10,7 +10,7 @@ public static class ProductQueries
         return x => x.Id == id;
     }
 
-    public static Expression<Func<Product, bool>> GetByDescriptionCoffe(string description)
+    public static Expression<Func<Product, bool>> GetByDescription(string description)
     {
         return x => x.Description == description;
     }
