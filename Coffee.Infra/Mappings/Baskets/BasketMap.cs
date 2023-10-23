@@ -17,10 +17,12 @@ public class BasketMap : IEntityTypeConfiguration<Basket>
         // Chave Primária
         builder.HasKey(x => x.Id);
 
-        // Configurar índice composto para CustomerId e CoffeId
-        //builder.HasIndex(x => new { x.CustomerId, x.CoffeId }).IsUnique();
-
         // Propriedades
+        builder.Property(x => x.CustomerId)
+            .IsRequired()
+            .HasColumnName("CustumerId")
+            .HasColumnType("uniqueidentifier");
+
         builder.Property(x => x.Price)
             .IsRequired()
             .HasColumnName("UnitPrice")

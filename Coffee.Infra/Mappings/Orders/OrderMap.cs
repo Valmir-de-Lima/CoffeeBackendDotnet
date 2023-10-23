@@ -18,6 +18,11 @@ public class OrderMap : IEntityTypeConfiguration<Order>
         builder.HasKey(x => x.Id);
 
         // Propriedades
+        builder.Property(x => x.CustomerId)
+            .IsRequired()
+            .HasColumnName("CustumerId")
+            .HasColumnType("uniqueidentifier");
+
         builder.Property(x => x.Price)
             .IsRequired()
             .HasColumnName("UnitPrice")
@@ -27,6 +32,22 @@ public class OrderMap : IEntityTypeConfiguration<Order>
             .IsRequired()
             .HasColumnName("Quantity")
             .HasColumnType("integer");
+
+        builder.Property(x => x.Status)
+            .IsRequired()
+            .HasColumnName("Status")
+            .HasColumnType("NVARCHAR")
+            .HasMaxLength(80);
+
+        builder.Property(x => x.Adress)
+            .HasColumnName("Adress")
+            .HasColumnType("NVARCHAR")
+            .HasMaxLength(80);
+
+        builder.Property(x => x.PaymentId)
+            .IsRequired()
+            .HasColumnName("PaymentId")
+            .HasColumnType("uniqueidentifier");
 
         // Índices
         builder

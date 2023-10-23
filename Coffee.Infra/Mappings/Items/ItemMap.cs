@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Coffee.Domain.Models.Product;
+using Coffee.Domain.Models.Orders.Items;
 
 
-namespace Coffee.Infra.Mappings.Products;
+namespace Coffee.Infra.Mappings.Items;
 
-public class ProductMap : IEntityTypeConfiguration<Product>
+public class ItemMap : IEntityTypeConfiguration<Item>
 {
-    public void Configure(EntityTypeBuilder<Product> builder)
+    public void Configure(EntityTypeBuilder<Item> builder)
     {
         // Tabela
-        builder.ToTable("Product");
+        builder.ToTable("Item");
 
         // É necessário ignorar a propriedade Notifications para nao ser mapeada
         builder.Ignore(x => x.Notifications);
@@ -19,11 +19,6 @@ public class ProductMap : IEntityTypeConfiguration<Product>
         builder.HasKey(x => x.Id);
 
         // Propriedades
-        builder.Property(x => x.CustomerId)
-        .IsRequired()
-        .HasColumnName("CustumerId")
-        .HasColumnType("uniqueidentifier");
-
         builder.Property(x => x.Description)
             .IsRequired()
             .HasColumnName("Description")
@@ -50,19 +45,19 @@ public class ProductMap : IEntityTypeConfiguration<Product>
             .HasColumnName("IsCoffee")
             .HasColumnType("bit");
 
-        // Relacionamento um (Basket) para muitos (Produts)
+        // Relacionamento um (Order) para muitos (Items)
         builder
-            .HasOne(x => x.Basket)
-                .WithMany(x => x.Products)
-            .HasConstraintName("FK_Products_Basket")
+            .HasOne(x => x.Order)
+                .WithMany(x => x.Items)
+            .HasConstraintName("FK_Items_Order")
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Relacionamento um (Product) para muitos (Ingredients)
+        // Relacionamento um (Item) para muitos (Ingredients)
         builder
             .HasMany(x => x.Ingredients);
 
         // Índices
         builder
-            .HasIndex(x => x.Description, "IX_Product_Description");
+            .HasIndex(x => x.Description, "IX_Item_Description");
     }
 }
