@@ -4,7 +4,7 @@ using Coffee.Domain.Models.Payments;
 
 namespace Coffee.Infra.Mappings.Payments;
 
-public class OrderMap : IEntityTypeConfiguration<Payment>
+public class PaymentMap : IEntityTypeConfiguration<Payment>
 {
     public void Configure(EntityTypeBuilder<Payment> builder)
     {

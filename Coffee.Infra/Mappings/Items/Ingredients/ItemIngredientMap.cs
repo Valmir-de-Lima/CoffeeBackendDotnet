@@ -4,7 +4,7 @@ using Coffee.Domain.Models.Orders.Items.Ingredients;
 
 namespace Coffee.Infra.Mappings.Items.Ingredients;
 
-public class IngredientMap : IEntityTypeConfiguration<Ingredient>
+public class ItemIngredientMap : IEntityTypeConfiguration<Ingredient>
 {
     public void Configure(EntityTypeBuilder<Ingredient> builder)
     {
