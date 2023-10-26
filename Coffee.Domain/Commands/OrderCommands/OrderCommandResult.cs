@@ -1,6 +1,7 @@
 using Coffee.Domain.Models.Orders;
 using Coffee.Domain.Models.Orders.Items;
 using Coffee.Domain.Models.Payments;
+using Coffee.Domain.Commands.OrderCommands.ItemCommands;
 
 
 namespace Coffee.Domain.Commands.OrderCommands;
@@ -13,7 +14,7 @@ public class OrderCommandResult
         CustomerId = order.CustomerId.ToString();
         Quantity = order.Quantity.ToString();
         Price = order.Price.ToString();
-        //Products = basket.Products.Select(x => new ProductCommandResult(x)).ToList();
+        Items = order.Items.Select(x => new ItemCommandResult(x)).ToList();
     }
 
     public string OrderId { get; set; } = string.Empty;
@@ -22,7 +23,7 @@ public class OrderCommandResult
     public string Price { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public string Adress { get; set; } = string.Empty;
-    public IList<Item> Items { get; set; } = new List<Item>();
+    public IList<ItemCommandResult> Items { get; private set; } = new List<ItemCommandResult>();
     public string PaymentId { get; set; } = string.Empty;
     public Payment Payment { get; set; } = new();
 }

@@ -17,7 +17,7 @@ public class Payment : Model
             new CreatePaymentContract(this)
         );
     }
-    public Guid CustomerId { get; }
+    public Guid CustomerId { get; set; }
     public string Type { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public DateTime Date { get; set; }

@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Coffee.Domain.Queries.Orders;
 
-public static class IngredientQueries
+public static class ItemIngredientQueries
 {
     public static Expression<Func<Ingredient, bool>> GetById(Guid id)
     {

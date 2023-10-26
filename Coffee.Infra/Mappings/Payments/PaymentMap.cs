@@ -52,11 +52,11 @@ public class PaymentMap : IEntityTypeConfiguration<Payment>
 
         // Índices
         builder
-            .HasIndex(x => x.CustomerId, "IX_Order_CustomerId")
+            .HasIndex(x => x.CustomerId, "IX_Payment_CustomerId")
             .IsUnique();
 
         builder
-            .HasIndex(x => x.OrderId, "IX_Order_OrderId")
+            .HasIndex(x => x.OrderId, "IX_Payment_OrderId")
             .IsUnique();
 
     }
