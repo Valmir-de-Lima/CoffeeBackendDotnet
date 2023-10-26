@@ -39,7 +39,7 @@ public class BasketRepository : Repository<Basket>, IBasketRepository
         };
     }
 
-    public async Task<dynamic> GetByIdWithProductsAsync(Guid id)
+    public async Task<Basket?> GetByIdWithProductsAsync(Guid id)
     {
         var basket = await _context.Baskets
                         .Include(x => x.Products)

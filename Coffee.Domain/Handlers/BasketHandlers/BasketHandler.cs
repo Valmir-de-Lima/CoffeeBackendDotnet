@@ -20,7 +20,6 @@ public class BasketHandler : Handler,
     private readonly IPersonalizedCoffeeRepository _personalizedCoffeeRepository;
     private readonly IPastryRepository _pastryRepository;
 
-
     public BasketHandler(
         IBasketRepository repository,
         IProductRepository productRepository,

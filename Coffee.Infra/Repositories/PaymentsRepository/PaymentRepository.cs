@@ -48,6 +48,15 @@ public class PaymentRepository : Repository<Payment>, IPaymentRepository
         return payment ?? null!;
     }
 
+    public async Task<Payment?> GetByIdWithOrderAsync(Guid id)
+    {
+        var payment = await _context.Payments
+                        .Include(x => x.Order)
+                        .ThenInclude(p => p.Items)
+                        .FirstOrDefaultAsync(x => x.Id == id);
+        return payment ?? null!;
+    }
+
     public async Task<dynamic> GetByCustomerIdAsync(Guid id, int skip = 0, int take = 25)
     {
         var count = await _context.Payments

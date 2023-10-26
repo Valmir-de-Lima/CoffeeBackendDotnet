@@ -10,5 +10,5 @@ public abstract class Model : Notifiable<Notification>
         Id = Guid.NewGuid();
     }
 
-    public Guid Id { get; }
+    public Guid Id { get; set; }
 }
